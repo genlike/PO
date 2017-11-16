@@ -3,6 +3,7 @@ package mmt.core;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.text.DecimalFormat;
 
 public class Service{
 	
@@ -11,7 +12,7 @@ public class Service{
 	
 	private Duration _totalDuration;
 
-	private List<Stop> listaStops;
+	private List<Stop> _listaStops;
 
 	public Service (int idService,double totalCost) {
 		_idService = idService;
@@ -27,3 +28,13 @@ public class Service{
 	double getCost(Stop startStop, Stop finalStop){			
 		return (getDuration(startStop, finalStop).toMinutes)*_totalCost)/_totalDuration.toMinutes; 
 	}
+
+	List<Stop> getStops() {
+		return _listaStops;
+	}
+
+	String toString() {
+		DecimalFormat df = new DecimalFormat("###.##");
+		return "Serviço #"+_idService+" @ "+ df.format(_totalCost);
+	}
+}
