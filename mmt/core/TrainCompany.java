@@ -22,8 +22,8 @@ public class TrainCompany implements java.io.Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 201708301010L;
 
-  //FIXME define fields
-
+  private static int _nextPassengerID = 0;
+  
   void importFile(String filename) {
     //FIXME implement function
   }
@@ -33,7 +33,9 @@ public class TrainCompany implements java.io.Serializable {
    *   registerPassenger, changePassengerName
    *   searchItineraries, commitItinerary
    */
-
+  int getNextPassangerID(){
+    return _nextPassengerID++;
+  }
   //FIXME implement other functions if necessary
 
 }
