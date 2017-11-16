@@ -3,7 +3,7 @@ package mmt.core;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Station{
+public class Station implements java.io.Serializable {
 	private String _description;
 	private List<Stop> listaStops;
 

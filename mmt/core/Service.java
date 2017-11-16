@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 
-public class Service{
+public class Service  implements java.io.Serializable {
 	
 	private final int _idService;
 	private double _totalCost;
