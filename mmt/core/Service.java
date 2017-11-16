@@ -43,6 +43,6 @@ public class Service{
 		Stop a = new Stop(stationStop, arrivalDate);
 		a.setService(this);
 		stationStop.addStop(a);
-		_listaStops.add(a);		
+		_listaStops.add(a);
 	}		
 }
