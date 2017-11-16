@@ -23,11 +23,11 @@ public class Service{
 	
 
 	public Duration getDuration(Stop startStop, Stop finalStop){
-		return Duration.between(startStop.getSchedule,finalStop.getSchedule);
+		return Duration.between(startStop.getSchedule(),finalStop.getSchedule());
 	}
 	
 	public double getCost(Stop startStop, Stop finalStop){			
-		return ((getDuration(startStop, finalStop).toMinutes)*_totalCost)/_totalDuration.toMinutes;
+		return ((getDuration(startStop, finalStop).toMinutes())*_totalCost)/_totalDuration.toMinutes();
 	}
 
 	public List<Stop> getStops() {
@@ -40,6 +40,9 @@ public class Service{
 	}
 	
 	void addStop(Station stationStop, LocalTime arrivalDate){
-		_listaStops.add(new Stop(stationStop, arrivalDate));		
+		Stop a = new Stop(stationStop, arrivalDate);
+		a.setService(this);
+		stationStop.addStop(a);
+		_listaStops.add(a);		
 	}		
 }
