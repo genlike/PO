@@ -8,6 +8,7 @@ public class Passenger implements java.io.Serializable{
 	* @author Ines Albano	 87664
 	* @author Ricardo Silva  87700
 	* @version 1.0
+	* Todos os metodos sao package-private logo nao e' explicitado o nivel de acesso
 	*/
 
 /**
@@ -31,7 +32,7 @@ public class Passenger implements java.io.Serializable{
    * @param name do tipo String
    * Usa o metodo setName(name)
    */
-	protected Passenger(String name, int id){
+	 Passenger(String name, int id){
 		setName(name);
 		_id = id;
 		_category = new Normal();
@@ -41,7 +42,7 @@ public class Passenger implements java.io.Serializable{
    * Devolve o ID do passageiro
    * @return _id do passageiro
    */
-	protected int getId(){
+	 int getId(){
 		return _id;
 	}
 
@@ -49,7 +50,7 @@ public class Passenger implements java.io.Serializable{
    * Devolve o nome do passageiro
    * @return String com o nome do passageiro
    */ 
-	protected String getName(){
+	 String getName(){
 		return _name;
 	}
 
@@ -57,7 +58,7 @@ public class Passenger implements java.io.Serializable{
    * Altera o nome do passageiro com um novo nome
    * @param name do tipo String
    */
-	protected void setName(String name){
+	 void setName(String name){
 		_name = name;
 	}
 
@@ -65,7 +66,7 @@ public class Passenger implements java.io.Serializable{
    * Devolve categoria a que o passageiro pertence
    * @return categoria do tipo Category
    */
-	protected Category getCategory(){
+	 Category getCategory(){
 		return _category;
 	}
 
@@ -73,7 +74,7 @@ public class Passenger implements java.io.Serializable{
    * Define a categoria do passageiro
    * @param category do tipo Category
    */
-	protected void setCategory(Category category){
+	 void setCategory(Category category){
 		_category = category;
 	}
 
@@ -81,7 +82,7 @@ public class Passenger implements java.io.Serializable{
    * Devolve a lista de iternerarios do passageiro
    * @return lista de Itenerary
    */
-	/*protected Itenerary[] getIteneraryLista(){
+	/* Itenerary[] getIteneraryLista(){
 		// FIXME implement when Itenerary is developed
 	}*/
 
@@ -90,7 +91,7 @@ public class Passenger implements java.io.Serializable{
    * Devolve qual o estado do passageiro
    * @return boolean com o estado
    */
-	protected boolean getStatus(){
+	 boolean getStatus(){
 		return _status;
 	}
 
@@ -98,7 +99,7 @@ public class Passenger implements java.io.Serializable{
    * Atualiza o estado do passageiro
    * @param status do tipo boolean
    */
-	protected void setStatus(boolean status){
+	 void setStatus(boolean status){
 		_status = status;
 	}
 

@@ -2,7 +2,7 @@ package mmt.core;
 
 public class Special extends Category{
 
-	protected Special(){
+	Special(){
 		super("Special");
 	}
 }

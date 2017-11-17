@@ -21,7 +21,7 @@ public abstract class Category{
    * O desconto e' preenchido de acordo com a categoria
    * @param description do tipo String
    */
-	protected Category(String description){
+	 Category(String description){
 		_description = description;
 		setDiscount(description);
 	}
@@ -30,7 +30,7 @@ public abstract class Category{
    * Devolve a categoria 
    * @return _description do tipo String
    */
-	protected String getCategoryDescription(){
+	 String getCategoryDescription(){
 		return _description;
 	}
 
@@ -38,7 +38,7 @@ public abstract class Category{
    * Define qual o desconto relativo a uma dada categoria
    * @param description do tipo String
    */
-	protected void setDiscount(String description){
+	 void setDiscount(String description){
 		if ( description == "Normal" )
 			_discount = 0;
 		else if ( description == "Frequent" )
@@ -51,13 +51,13 @@ public abstract class Category{
    * Devolve qual o desconto relativo a cada categoria 
    * @return _discount do tipo double
    */
-	protected double getDiscount(){
+	 double getDiscount(){
 		return _discount;
 	}
 // Este desconto e' relativo a cada cliente ou e' o da categoria?
 
 @Override
-	protected String toString(){
+	 String toString(){
 		return "" + _discount;
 	}
 
