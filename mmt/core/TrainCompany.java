@@ -23,6 +23,8 @@ public class TrainCompany implements java.io.Serializable {
   private static final long serialVersionUID = 201708301010L;
 
   private static int _nextPassengerID = 0;
+
+  private ArrayList<Form> Passengers = new ArrayList<Form>();
   
   void importFile(String filename) {
     //FIXME implement function
@@ -37,5 +39,6 @@ public class TrainCompany implements java.io.Serializable {
     return _nextPassengerID++;
   }
   //FIXME implement other functions if necessary
+
 
 }

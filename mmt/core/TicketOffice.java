@@ -19,6 +19,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
+import mmt.core.TrainCompany;
 //FIXME import other classes if necessary
 
 /**
@@ -32,15 +33,20 @@ public class TicketOffice {
   //FIXME define other fields
 
   public void reset() {
-    //FIXME implement this function
   }
+  // Apenas quer limpar os iternerarios e os passageiros
 
-  public void save(String filename) /*FIXME add thrown exceptions*/ {
-    //FIXME implement this function
+  public void save(String filename) throws FileNotFoundException, IoException{
+    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+    out.writeObject(_trainCompany);
+    _trainCompany = (TrainCompany)out.realObject();
+    out.close();
   }
 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
-    //FIXME implement this function
+    ObjectInputStream in = new ObjectInputStream(new FileOutputStream(filename));
+    _trainCompany = (TrainCompany)in.realObject();
+    in.close();
   }
 
   public void importFile(String datafile) throws ImportFileException {
