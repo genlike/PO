@@ -13,26 +13,26 @@ public class Service  implements java.io.Serializable {
 	private Duration 	_totalDuration;
 	private List<Stop> 	_listaStops;
 
-	public Service (int idService,double totalCost) {
+	Service (int idService,double totalCost) {
 		_idService = idService;
 		_totalCost = totalCost;
 		_listaStops = new ArrayList<>();		
 	}
 	
 
-	public Duration getDuration(Stop startStop, Stop finalStop){
+	Duration getDuration(Stop startStop, Stop finalStop){
 		return Duration.between(startStop.getSchedule(),finalStop.getSchedule());
 	}
 	
-	public double getCost(Stop startStop, Stop finalStop){			
+	double getCost(Stop startStop, Stop finalStop){			
 		return ((getDuration(startStop, finalStop).toMinutes())*_totalCost)/_totalDuration.toMinutes();
 	}
 
-	public List<Stop> getStops() {
+	List<Stop> getStops() {
 		return _listaStops;
 	}
 
-	public String toString() {
+	String toString() {
 		DecimalFormat df = new DecimalFormat("###.##");
 		return "Serviço #"+_idService+" @ "+ df.format(_totalCost);
 	}

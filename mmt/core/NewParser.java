@@ -69,7 +69,7 @@ public class NewParser {
       String time = components[i];
       String stationName = components[i + 1];
       LocalTime ltime = LocalTime.parse(time);
-
+      //TODO Adicionar verificacao de criacao de Station 
       // adicionar TrainStop com ltime e Station com o nome stationName
     }
   }
