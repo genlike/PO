@@ -35,7 +35,6 @@ public class Passenger implements java.io.Serializable{
 		setName(name);
 		_id = id;
 		_category = new Normal();
-
 	}
 
 /**
