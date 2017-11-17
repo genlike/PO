@@ -2,7 +2,7 @@ package mmt.core;
 
 import java.time.LocalTime;
 
-public class Stop {
+public class Stop implements java.io.Serializable {
 	private LocalTime _schedule;
 	private Station _station;
 	private Service _service;
