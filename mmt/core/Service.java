@@ -8,12 +8,10 @@ import java.text.DecimalFormat;
 
 public class Service  implements java.io.Serializable {
 	
-	private final int _idService;
-	private double _totalCost;
-	
-	private Duration _totalDuration;
-
-	private List<Stop> _listaStops;
+	private final int 	_idService;
+	private double		_totalCost;
+	private Duration 	_totalDuration;
+	private List<Stop> 	_listaStops;
 
 	public Service (int idService,double totalCost) {
 		_idService = idService;
