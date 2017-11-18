@@ -72,5 +72,4 @@ public class TrainCompany implements java.io.Serializable {
   Map<String,Station> getListEstacoes(){ return listEstacoes; }
   Map<Integer,Passenger> getlistPassageiros() { return listPassageiros; }
 
-
 }

@@ -42,7 +42,7 @@ public class TicketOffice {
 
   public void reset() {
     // TODO clear Itenerary
-    // TODO clear Passengers
+    _trainCompany.getListPassageiros().clear();
   }
 
   // Apenas quer limpar os iternerarios e os passageiros
@@ -118,12 +118,27 @@ public class TicketOffice {
     return listAllPassengers;
   }
 
-  public String showPassengerById(int id){
+  public String showPassengerById(int id) throws NoSuchPassengerIdException {
     Passenger p =_trainCompany.getlistPassageiros().get(id);
-    if (p == null) {
-      throw new NoSuchPassengerIdException(id);
-    }
+    if (p == null) { throw new NoSuchPassengerIdException(id); }
     return p.toString();
   }
-
+  public showServiceById(int id) throws NoSuchServiceIdException{
+    Service s = _trainCompany.getListService().get(id);
+    if (s == null) { throw new NoSuchServiceIdException(id); }
+    return s;
+  }
+  public List<String> getIsServiceDeparture(String name) throws NoSuchStationNameException {
+    List<String> listOfServices = new ArrayList<>();
+    Station st = _trainCompany.getListEstacoes().get(name);
+    
+    if (st == null) { throw new NoSuchServiceIdException(name); }
+    
+    for (Stop stp: st.getStops()){
+      Service s = stp.getService();
+      if (s.isDeparture(stp)){
+	listOfServices.add(s)
+      }
+    }
+  }  
 }
