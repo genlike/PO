@@ -22,6 +22,8 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 import java.util.List;
 import java.util.ArrayList;
 
+import mmt.app.main.Message;
+
 //FIXME import other classes if necessary
 
 /**
@@ -32,22 +34,24 @@ public class TicketOffice {
   /** The object doing most of the actual work. */
   private TrainCompany _trainCompany;
 
+  //private Message _message;
+
   //FIXME define other fields
 
   public void reset() {
   }
   // Apenas quer limpar os iternerarios e os passageiros
 
-  public void save(String filename) throws FileNotFoundException, IoException{
+  public void save(String filename) throws FileNotFoundException, IOException{
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
     out.writeObject(_trainCompany);
-    _trainCompany = (TrainCompany)out.realObject();
+    //_trainCompany = (TrainCompany)out.readObject();
     out.close();
   }
 
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
-    ObjectInputStream in = new ObjectInputStream(new FileOutputStream(filename));
-    _trainCompany = (TrainCompany)in.realObject();
+    ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+    _trainCompany = (TrainCompany)in.readObject();
     in.close();
   }
 
@@ -78,10 +82,16 @@ public class TicketOffice {
   }
 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
-    _trainCompany.changePassengerName(id, newName);
+    //_trainCompany.changePassengerName(id, newName);
     Passenger p = _trainCompany.getlistPassageiros().get(id);
-    if (p == null) {throw NoSuchPassengerIdException;}
+    if (p == null) {
+      throw new NoSuchPassengerIdException();
+    }
     p.setName(newName);
+  }
+
+  public void registerPassenger(String name){
+    _trainCompany.addPassenger(name);
   }
 
 }

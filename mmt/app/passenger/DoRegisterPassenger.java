@@ -9,7 +9,7 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
-import mmt.core.*;
+import mmt.core.TicketOffice;
 
 //FIXME import other classes if necessary
 
@@ -37,7 +37,7 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
     try{
       _receiver.addPassenger(_name.value());
     } catch (InvalidPassengerNameException) {
-        throw DialogException( Message.InvalidPassengerNameException(_name.value()) );}
+        throw new DialogException( Message.InvalidPassengerNameException(_name.value()) );}
   }
 
 }
