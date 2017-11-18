@@ -22,7 +22,11 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    //FIXME implement command
+    _form.parse();
+
+  for(Passenger p : _receiver.getlistPassageiros())
+    _display.addLine(p.exportListOfAllPassenger());
   }
+  _display.display;
 
 }
