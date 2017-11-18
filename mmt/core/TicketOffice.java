@@ -39,7 +39,9 @@ public class TicketOffice {
   //private Message _message;
 
   //FIXME define other fields
-
+  public TicketOffice(){
+    _trainCompany = new TrainCompany();
+  }
   public void reset() {
     // TODO clear Itenerary
     _trainCompany.getlistPassageiros().clear();
