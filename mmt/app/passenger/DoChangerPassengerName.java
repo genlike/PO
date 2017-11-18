@@ -44,6 +44,6 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
     try{
       _receiver.changePassengerName(_id.value(),_newName.value());
     } catch (NoSuchPassengerIdException ex) {
-        throw new BadPassengerNameException(Message.noSuchPassengerId(_id.value()));}
+        throw new NoSuchPassengerException(_id.value());}
   }
 }
