@@ -72,8 +72,9 @@ public class TicketOffice {
   //FIXME add other functions if necessary
   public List<String> exportListofServices() {
     List<String> listOfServices = new ArrayList<>();
-    for (Service s : _trainCompany.getListService().values())
+    for (Service s : _trainCompany.getListService().values()){
 //      listOfServices.add()
+    }
   }
 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{

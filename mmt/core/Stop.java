@@ -27,7 +27,7 @@ public class Stop implements java.io.Serializable {
 	Service getService(){ return _service; }
 	Station getStation(){ return _station; }
 
-	public toString() {
+	public String toString() {
 	  return String.format("{0:HH:mm} %s", getSchedule(), getStation());
 	}
 }
