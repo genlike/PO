@@ -1,5 +1,5 @@
 package mmt.core;
-
+-
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
@@ -49,5 +49,8 @@ public class Service  implements java.io.Serializable {
 		stationStop.addStop(a);
 		_listStops.add(a);
 	}
-        		
+
+        boolean isDeparture(Stop stp) {
+	  return getStops().indexOf(stp) == 0;
+	}		
 }
