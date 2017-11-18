@@ -42,7 +42,11 @@ public class TicketOffice {
 
   public void reset() {
     // TODO clear Itenerary
+<<<<<<< Updated upstream
     _trainCompany.getListPassageiros().clear();
+=======
+    _trainCompany.getlistPassageiros().clear();
+>>>>>>> Stashed changes
   }
 
   // Apenas quer limpar os iternerarios e os passageiros

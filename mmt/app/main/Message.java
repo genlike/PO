@@ -56,7 +56,7 @@ public final class Message {
    * @param id
    * @return error message
    */
-  public static Object noSuchPassenger(int id) {
+  public static String noSuchPassenger(int id) {
     return "O passageiro " + id + "não existe.";
   }
 
