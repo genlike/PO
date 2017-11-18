@@ -11,6 +11,8 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
+
+
 //FIXME import other classes if necessary
 
 /**
@@ -18,19 +20,27 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoChangerPassengerName extends Command<TicketOffice> {
 
-  //FIXME define input fields
+  private Input<Integer> _id;
+  private Input<String> _newName;
 
   /**
    * @param receiver
    */
   public DoChangerPassengerName(TicketOffice receiver) {
     super(Label.CHANGE_PASSENGER_NAME, receiver);
-    //FIXME initilize input fields
+    
+    _id =_form.addIntegerInput(_receiver.requestPassengerId());
+    _newName = _form.addStringInput(_receiver.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+
+    try{
+      _receiver.changePassengerName(_id.value(),_newName.value());
+    } catch (NoSuchPassengerIdException) {
+        throw DialogException( Message.NoSuchPassengerIdException(_id) );}
   }
 }

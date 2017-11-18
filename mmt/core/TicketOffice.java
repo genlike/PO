@@ -79,4 +79,12 @@ public class TicketOffice {
     for (Service s : _trainCompany.getListService().values())
 //      listOfServices.add()
   }
+
+  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
+    _trainCompany.changePassengerName(id, newName);
+    Passenger p = _trainCompany.getlistPassageiros().get(id);
+    if (p == null) {throw NoSuchPassengerIdException;}
+    p.setName(newName);
+  }
+
 }
