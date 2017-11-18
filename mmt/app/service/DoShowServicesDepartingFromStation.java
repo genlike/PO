@@ -16,20 +16,27 @@ import pt.tecnico.po.ui.Display;
  */
 public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
 
-  //FIXME define input fields
-
+  private Input<String> _name;
   /**
    * @param receiver
    */
   public DoShowServicesDepartingFromStation(TicketOffice receiver) {
     super(Label.SHOW_SERVICES_DEPARTING_FROM_STATION, receiver);
-    //FIXME initialize input fields
+    _name = _form.addStringInput(Message.requestStationName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+    try{
+      for(String s: _receiver.getIsServiceDeparture(_name.value())){
+        _display.addLine(s);
+      }
+    } catch (NoSuchStationNameException ex) {
+    	throw new mmt.app.exceptions.NoSuchStationException(_name.value());
+    }
+    _display.display();
   }
 
 }

@@ -140,6 +140,7 @@ public class TicketOffice {
     if (st == null) { throw new NoSuchStationNameException(name); }
     
     for (Stop stp: st.getStops()){
+      System.out.println(stp.toString());
       Service s = stp.getService();
       if (s.isDeparture(stp)){
         listOfServices.add(s.toString());

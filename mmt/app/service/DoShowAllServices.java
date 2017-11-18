@@ -21,7 +21,9 @@ public class DoShowAllServices extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    //FIXME implement command
+    for (String s : _receiver.exportListofServices()){
+      _display.addLine(s);
+    }
+    _display.display();
   }
-
 }

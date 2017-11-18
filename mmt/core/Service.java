@@ -40,17 +40,16 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	int getidService() { return _idService; }
 
 	public String toString() {
-	  String s = String.format("Serviço #%d @ %.2f \n", getTotalCost(),getidService());
+	  String s = String.format("Serviço #%d @ %.2f \n",getidService(), getTotalCost());
 	  for (Stop st: _listStops) {
 	    s = s + st + "\n";
 	  }
-	  return s;
+	  return s.substring(0,s.length() -1);
 	}
 	
 	void addStop(Station stationStop, LocalTime arrivalDate){
 		Stop a = new Stop(stationStop, arrivalDate);
 		a.setService(this);
-		stationStop.addStop(a);
 		_listStops.add(a);
 	}
 

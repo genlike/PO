@@ -17,19 +17,29 @@ import pt.tecnico.po.ui.Display;
 public class DoShowServiceByNumber extends Command<TicketOffice> {
 
   //FIXME define input fields
+  private Input<Integer> _id;
 
   /**
    * @param receiver
    */
   public DoShowServiceByNumber(TicketOffice receiver) {
     super(Label.SHOW_SERVICE_BY_NUMBER, receiver);
-    //FIXME initialize input fields
+    
+    _id = _form.addIntegerInput(Message.requestServiceId());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+  
+    try{
+      _display.addLine(_receiver.showServiceById(_id.value()));
+    } catch (NoSuchServiceIdException pie) {
+        throw new NoSuchServiceException( _id.value());
+    }
+
+    _display.display();
   }
 
 }
