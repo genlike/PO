@@ -1,6 +1,8 @@
 package mmt.core;
 
-public class Passenger implements java.io.Serializable{
+import java.time.Duration;
+
+public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 /**
 	* Classe responsavel pelo registo relativo ao passageiro
 	* @author Ines Albano	 87664
@@ -21,8 +23,9 @@ public class Passenger implements java.io.Serializable{
 	private String 		_name;
 	private boolean 	_status;
 	private double 		_totalCost;
-	private int 		_totalTravelTime;
+	private Duration	_totalTravelTime;
 	private Category 	_category;
+	private int 		_totalItenerary;
 
 /**
    * Contrutor que comeca por identificar o passageiro com o nome
@@ -34,6 +37,7 @@ public class Passenger implements java.io.Serializable{
 		setName(name);
 		_id = id;
 		_category = new Normal();
+		_totalTravelTime = Duration.ZERO;
 	}
 
 /**
@@ -100,5 +104,24 @@ public class Passenger implements java.io.Serializable{
 	 void setStatus(boolean status){
 		_status = status;
 	}
+
+	int getTotalItenerary(){
+		return _totalItenerary;
+	}
+
+	Duration getTotalTime(){
+		return _totalTravelTime;
+	}
+
+@Override
+
+	public String toString(){
+		return String.format("%d|%s|%s|%d|%d|{0:HH:mm}", 
+			getId(), getName(), getCategory(), getTotalItenerary(), 0, getTotalTime());
+	}
+
+	public int compareTo(Passenger p){
+    	return this.getId() - p.getId();
+  }
 
 }

@@ -21,6 +21,8 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import mmt.app.main.Message;
 
@@ -39,7 +41,10 @@ public class TicketOffice {
   //FIXME define other fields
 
   public void reset() {
+    // TODO clear Itenerary
+    // TODO clear Passengers
   }
+
   // Apenas quer limpar os iternerarios e os passageiros
 
   public void save(String filename) throws FileNotFoundException, IOException{
@@ -74,9 +79,14 @@ public class TicketOffice {
   //FIXME add methods for passenger registration and passenger name update
   
   //FIXME add other functions if necessary
+
   public List<String> exportListofServices() {
     List<String> listOfServices = new ArrayList<>();
-    for (Service s : _trainCompany.getListService().values()){
+    List<Service> listOfServicesId = new ArrayList<>(_trainCompany.getListService().values());
+
+    Collections.sort(listOfServicesId);
+
+    for (Service s : listOfServicesId){
       listOfServices.add(s.toString());
     }
     return listOfServices;
@@ -93,6 +103,27 @@ public class TicketOffice {
 
   public void registerPassenger(String name){
     _trainCompany.addPassenger(name);
+  }
+
+  public List<String> exportListOfAllPassenger() {
+
+    List<String> listAllPassengers = new ArrayList<>();
+    List<Passenger> listPassengersId = new ArrayList<>(_trainCompany.getlistPassageiros().values());
+
+    Collections.sort(listPassengersId);
+
+    for (Passenger p : listPassengersId){
+      listAllPassengers.add(p.toString());
+    }
+    return listAllPassengers;
+  }
+
+  public String showPassengerById(int id){
+    Passenger p =_trainCompany.getlistPassageiros().get(id);
+    if (p == null) {
+      throw new NoSuchPassengerIdException(id);
+    }
+    return p.toString();
   }
 
 }
