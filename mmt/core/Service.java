@@ -38,8 +38,9 @@ public class Service  implements java.io.Serializable {
 	public String toString() {
 	  String s = String.format("Serviço #%d @ %.2f \n", getTotalCost(),getidService());
 	  for (Stop st: _listStops) {
-	    s = s + st + "\n"; 
+	    s = s + st + "\n";
 	  }
+	  return s;
 	}
 	
 	void addStop(Station stationStop, LocalTime arrivalDate){

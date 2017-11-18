@@ -12,9 +12,7 @@ public class Stop implements java.io.Serializable {
 		_station.addStop(this);
 		setSchedule(schedule);
 	}
-	
-	
-	
+		
 	void setSchedule(LocalTime schedule){
 		_schedule = schedule;
 	}
