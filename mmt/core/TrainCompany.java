@@ -11,9 +11,7 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 //FIXME import other classes if necessary
@@ -29,9 +27,9 @@ public class TrainCompany implements java.io.Serializable {
 
   private int _nextPassengerID = 0;
   
-  private Map<int,Service> listService;
+  private Map<Integer,Service> listService;
   private Map<String,Station> listEstacoes;
-  private Map<int,Passenger> listPassageiros;
+  private Map<Integer,Passenger> listPassageiros;
 
   //TODO
   TrainCompany(){
@@ -49,23 +47,28 @@ public class TrainCompany implements java.io.Serializable {
   }
   
   Passenger addPassenger(String name) {
-    int id = getNextPassengerID();
-    Passenger p = new Passenger(id, name);
-    listaPassageiros.put(id, p);
+    Integer id = getNextPassengerID();
+    Passenger p = new Passenger(id.intValue(), name);
+    listPassageiros.put(id, p);
     return p;
   }
   
-  Service addService(int id, double cost){
+  Service addService(Integer id, double cost){
     Service s = new Service(id, cost);
-    listaServicos.add(id,s);
+    listService.put(id,s);
     return s;
   }
   //FIXME implement other functions if necessary
   Station addStation(String name){
     Station s = listEstacoes.get(name);
-    if (s) { return s; }
+    if (!(s==null)) { return s; }
     s = new Station(name);
     listEstacoes.put(name, s);
     return s;
   }
+
+  Map<Integer,Service> getListService(){ return listService; }
+  Map<String,Station> getListEstacoes(){ return listEstacoes; }
+  Map<Integer,Passenger> getlistPassageiros() { return listPassageiros; }
+
 }

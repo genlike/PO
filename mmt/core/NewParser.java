@@ -13,7 +13,7 @@ public class NewParser {
 
   private TrainCompany _trainCompany;
 
-  public void parseFile(String fileName) throws ImportFileException {
+  TrainCompany parseFile(String fileName) throws ImportFileException {
      _trainCompany = new TrainCompany();
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -70,12 +70,10 @@ public class NewParser {
       String stationName = components[i + 1];
       LocalTime ltime = LocalTime.parse(time);
       s.addStop(_trainCompany.addStation(stationName),ltime);
-      //TODO Adicionar verificacao de criacao de Station 
-      // adicionar TrainStop com ltime e Station com o nome stationName
-    }
+      }
   }
 
-  private void parseItinerary(String[] components) {
+  private void parseItinerary(String[] components) throws ImportFileException {
     if (components.length < 4)
       throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
 

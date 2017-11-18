@@ -44,19 +44,20 @@ public class TicketOffice {
   }
 
   public void importFile(String datafile) throws ImportFileException {
-    _trainCompany.importFile(datafile);
+    NewParser nP = new NewParser();
+    _trainCompany = nP.parseFile(datafile);
   }
 
   //FIXME complete and implement the itinerary search (and pre-commit store) method
-  public /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-                                              String departureTime) /*FIXME define thrown exceptions */ {
+//  public /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
+//                                              String departureTime) /*FIXME define thrown exceptions */ {
     //FIXME implement method
-  }
+//  }
 
   //FIXME complete and implement the itinerary commit method
-  public /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
+//  public /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
     //FIXME implement method
-  }
+//  }
 
   //FIXME add methods for passenger registration and passenger name update
 

@@ -32,7 +32,7 @@ public class Service  implements java.io.Serializable {
 		return _listStops;
 	}
 
-	String toString() {
+	public String toString() {
 		DecimalFormat df = new DecimalFormat("###.##");
 		return "Serviço #"+_idService+" @ "+ df.format(_totalCost);
 	}
