@@ -8,6 +8,8 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import pt.tecnico.po.ui.Display;
+import pt.tecnico.po.ui.Form;
 
 import mmt.core.TicketOffice;
 
@@ -26,18 +28,15 @@ public class DoRegisterPassenger extends Command<TicketOffice> {
   public DoRegisterPassenger(TicketOffice receiver) {
     super(Label.REGISTER_PASSENGER, receiver);
     
-    _name = _form.addStringInput(_receiver.requestPassengerName());
+    _name = _form.addStringInput(Message.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
-  public final void execute() throws DialogException {
+  public final void execute(){
     _form.parse();
 
-    try{
-      _receiver.addPassenger(_name.value());
-    } catch (InvalidPassengerNameException) {
-        throw new DialogException( Message.InvalidPassengerNameException(_name.value()) );}
+    _receiver.registerPassenger(_name.value());
   }
 
 }

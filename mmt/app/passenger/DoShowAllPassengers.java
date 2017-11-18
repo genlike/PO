@@ -4,6 +4,8 @@ import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
+import mmt.core.TicketOffice;
+
 
 //FIXME import other classes if necessary
 
@@ -22,11 +24,13 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    _form.parse();
 
-  for(Passenger p : _receiver.getlistPassageiros())
-    _display.addLine(p.exportListOfAllPassenger());
+  for(String p : _receiver.exportListOfAllPassenger()){
+    _display.addLine(p);
   }
-  _display.display;
+
+  _display.display();
+
+  }
 
 }

@@ -42,7 +42,7 @@ public class TicketOffice {
 
   public void reset() {
     // TODO clear Itenerary
-    _trainCompany.getListPassageiros().clear();
+    _trainCompany.getlistPassageiros().clear();
 
   }
 
@@ -135,13 +135,14 @@ public class TicketOffice {
     List<String> listOfServices = new ArrayList<>();
     Station st = _trainCompany.getListEstacoes().get(name);
     
-    if (st == null) { throw new NoSuchServiceIdException(name); }
+    if (st == null) { throw new NoSuchStationNameException(name); }
     
     for (Stop stp: st.getStops()){
       Service s = stp.getService();
       if (s.isDeparture(stp)){
-        listOfServices.add(s);
+        listOfServices.add(s.toString());
       }
     }
+    return listOfServices;
   }  
 }

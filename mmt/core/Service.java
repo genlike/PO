@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 
-public class Service  implements java.io.Serializable {
+public class Service  implements java.io.Serializable, Comparable<Service> {
 	
 	private final int 	_idService;
 	private double		_totalCost;
@@ -28,8 +28,12 @@ public class Service  implements java.io.Serializable {
 		return ((getDuration(startStop, finalStop).toMinutes())*_totalCost)/_totalDuration.toMinutes();
 	}
 
+	int getId(){
+		return _idService;
+	}
 	List<Stop> getStops() {
 		return _listStops;
+		
 	}
 
 	double getTotalCost() { return _totalCost; }
@@ -52,5 +56,10 @@ public class Service  implements java.io.Serializable {
 
         boolean isDeparture(Stop stp) {
 	  return getStops().indexOf(stp) == 0;
-	}		
+	}
+
+	public int compareTo(Service s){
+    	return this.getId() - s.getId();
+  }
+		
 }

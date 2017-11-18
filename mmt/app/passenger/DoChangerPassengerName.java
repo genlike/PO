@@ -10,6 +10,8 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
+import pt.tecnico.po.ui.Display;
+import pt.tecnico.po.ui.Form;
 
 import mmt.core.TicketOffice;
 
@@ -30,8 +32,8 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
   public DoChangerPassengerName(TicketOffice receiver) {
     super(Label.CHANGE_PASSENGER_NAME, receiver);
     
-    _id =_form.addIntegerInput(_receiver.requestPassengerId());
-    _newName = _form.addStringInput(_receiver.requestPassengerName());
+    _id =_form.addIntegerInput(Message.requestPassengerId());
+    _newName = _form.addStringInput(Message.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
@@ -41,7 +43,7 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
 
     try{
       _receiver.changePassengerName(_id.value(),_newName.value());
-    } catch (NoSuchPassengerIdException) {
-        throw new DialogException( Message.NoSuchPassengerIdException(_id.value()) );}
+    } catch (NoSuchPassengerIdException ex) {
+        throw new BadPassengerNameException(Message.noSuchPassengerId(_id.value()));}
   }
 }

@@ -14,20 +14,22 @@ import java.io.IOException;
  */
 public class DoOpen extends Command<TicketOffice> {
 
-  //FIXME define input fields
+  private Input<String> _filepath;
 
   /**
    * @param receiver
    */
   public DoOpen(TicketOffice receiver) {
     super(Label.OPEN, receiver);
+
+    _filepath = _form.addStringInput(Message.openFile());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
     try {
-      //FIXME implement command
+      _receiver.load(_filepath.value());
     } catch (FileNotFoundException fnfe) {
       _display.popup(Message.fileNotFound());
     } catch (ClassNotFoundException | IOException e) {

@@ -7,6 +7,7 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 import pt.tecnico.po.ui.Display;
+import pt.tecnico.po.ui.Form;
 
 //FIXME import other classes if necessary
 
@@ -23,7 +24,7 @@ public class DoShowPassengerById extends Command<TicketOffice> {
   public DoShowPassengerById(TicketOffice receiver) {
     super(Label.SHOW_PASSENGER_BY_ID, receiver);
     
-    _id =_form.addIntegerInput(_receiver.requestPassengerId());
+    _id =_form.addIntegerInput(Message.requestPassengerId());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
@@ -31,9 +32,13 @@ public class DoShowPassengerById extends Command<TicketOffice> {
   public final void execute() throws DialogException {
     _form.parse();
 
-    _display.addLine(_receiver.showPassengerById(_id.value()));
+    try{
+      _display.addLine(_receiver.showPassengerById(_id.value()));
+    } catch (NoSuchPassengerIdException pie) {
+        throw new NoSuchPassengerException( _id.value());
+  }
 
-    _display.display;
+    _display.display();
   }
 
 }
