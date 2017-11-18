@@ -77,15 +77,16 @@ public class TicketOffice {
   public List<String> exportListofServices() {
     List<String> listOfServices = new ArrayList<>();
     for (Service s : _trainCompany.getListService().values()){
-//      listOfServices.add()
+      listOfServices.add(s.toString());
     }
+    return listOfServices;
   }
 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
     //_trainCompany.changePassengerName(id, newName);
     Passenger p = _trainCompany.getlistPassageiros().get(id);
     if (p == null) {
-      throw new NoSuchPassengerIdException();
+      throw new NoSuchPassengerIdException(id);
     }
     p.setName(newName);
   }
