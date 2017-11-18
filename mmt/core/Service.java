@@ -32,9 +32,14 @@ public class Service  implements java.io.Serializable {
 		return _listStops;
 	}
 
+	double getTotalCost() { return _totalCost; }
+	int getidService() { return _idService; }
+
 	public String toString() {
-		DecimalFormat df = new DecimalFormat("###.##");
-		return "Serviço #"+_idService+" @ "+ df.format(_totalCost);
+	  String s = String.format("Serviço #%d @ %.2f \n", getTotalCost(),getidService());
+	  for (Stop st: _listStops) {
+	    s = s + st + "\n"; 
+	  }
 	}
 	
 	void addStop(Station stationStop, LocalTime arrivalDate){
@@ -42,5 +47,6 @@ public class Service  implements java.io.Serializable {
 		a.setService(this);
 		stationStop.addStop(a);
 		_listStops.add(a);
-	}		
+	}
+        		
 }

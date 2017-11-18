@@ -13,9 +13,7 @@ public class Stop implements java.io.Serializable {
 		setSchedule(schedule);
 	}
 	
-	LocalTime getSchedule() {
-		return _schedule;
-	}
+	
 	
 	void setSchedule(LocalTime schedule){
 		_schedule = schedule;
@@ -25,7 +23,11 @@ public class Stop implements java.io.Serializable {
 		_service = service;
 	}
 	
-	Service getService(){
-		return _service;
+	LocalTime getSchedule() { return _schedule; }
+	Service getService(){ return _service; }
+	Station getStation(){ return _station; }
+
+	public toString() {
+	  return String.format("{0:HH:mm} %s", getSchedule(), getStation());
 	}
 }

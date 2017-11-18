@@ -25,13 +25,7 @@ public class TrainCompany implements java.io.Serializable {
   /** Serial number for serialization. */
   private static final long serialVersionUID = 201708301010L;
 
-<<<<<<< HEAD
-  private static int _nextPassengerID = 0;
-
-  private ArrayList<Form> Passengers = new ArrayList<Form>();
-=======
   private int _nextPassengerID = 0;
->>>>>>> master
   
   private Map<Integer,Service> listService;
   private Map<String,Station> listEstacoes;

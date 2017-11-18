@@ -19,13 +19,9 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
-<<<<<<< HEAD
-import mmt.core.TrainCompany;
-=======
 import java.util.List;
 import java.util.ArrayList;
 
->>>>>>> master
 //FIXME import other classes if necessary
 
 /**

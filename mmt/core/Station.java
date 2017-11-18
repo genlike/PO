@@ -27,4 +27,7 @@ public class Station implements java.io.Serializable {
 	List<Stop> getStops(){
 		return listaStops;
 	}
+	public String toString() {
+		return _description;
+	}
 }
