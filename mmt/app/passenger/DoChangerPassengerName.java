@@ -11,6 +11,7 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
+import mmt.core.*;
 
 
 //FIXME import other classes if necessary
@@ -41,6 +42,6 @@ public class DoChangerPassengerName extends Command<TicketOffice> {
     try{
       _receiver.changePassengerName(_id.value(),_newName.value());
     } catch (NoSuchPassengerIdException) {
-        throw DialogException( Message.NoSuchPassengerIdException(_id) );}
+        throw DialogException( Message.NoSuchPassengerIdException(_id.value()) );}
   }
 }

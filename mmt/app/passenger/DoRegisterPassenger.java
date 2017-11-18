@@ -9,6 +9,8 @@ import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.DialogException;
 import pt.tecnico.po.ui.Input;
 
+import mmt.core.*;
+
 //FIXME import other classes if necessary
 
 /**
@@ -16,20 +18,26 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoRegisterPassenger extends Command<TicketOffice> {
 
-  //FIXME define input fields
+  private Input<String> _name;
 
   /**
    * @param receiver
    */
   public DoRegisterPassenger(TicketOffice receiver) {
     super(Label.REGISTER_PASSENGER, receiver);
-    //FIXME initialize input fields
+    
+    _name = _form.addStringInput(_receiver.requestPassengerName());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() throws DialogException {
-    //FIXME implement command
+    _form.parse();
+
+    try{
+      _receiver.addPassenger(_name.value());
+    } catch (InvalidPassengerNameException) {
+        throw DialogException( Message.InvalidPassengerNameException(_name.value()) );}
   }
 
 }
