@@ -1,7 +1,5 @@
 package mmt.core;
 
-import mmt.core.Category;
-
 public class Passenger implements java.io.Serializable{
 /**
 	* Classe responsavel pelo registo relativo ao passageiro
@@ -32,7 +30,7 @@ public class Passenger implements java.io.Serializable{
    * @param name do tipo String
    * Usa o metodo setName(name)
    */
-	 Passenger(String name, int id){
+	 Passenger(int id, String name){
 		setName(name);
 		_id = id;
 		_category = new Normal();
