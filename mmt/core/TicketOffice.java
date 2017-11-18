@@ -19,7 +19,13 @@ import mmt.core.exceptions.NoSuchStationNameException;
 import mmt.core.exceptions.NoSuchItineraryChoiceException;
 import mmt.core.exceptions.NonUniquePassengerNameException;
 
+<<<<<<< HEAD
 import mmt.core.TrainCompany;
+=======
+import java.util.List;
+import java.util.ArrayList;
+
+>>>>>>> master
 //FIXME import other classes if necessary
 
 /**
@@ -66,7 +72,11 @@ public class TicketOffice {
 //  }
 
   //FIXME add methods for passenger registration and passenger name update
-
+  
   //FIXME add other functions if necessary
-
+  public List<String> exportListofServices() {
+    List<String> listOfServices = new ArrayList<>();
+    for (Service s : _trainCompany.getListService().values())
+//      listOfServices.add()
+  }
 }
