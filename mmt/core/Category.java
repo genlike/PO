@@ -56,8 +56,8 @@ public abstract class Category{
 	}
 // Este desconto e' relativo a cada cliente ou e' o da categoria?
 
-@Override
-	 String toString(){
+	@Override
+	public String toString(){
 		return "" + _discount;
 	}
 

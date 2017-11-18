@@ -7,25 +7,25 @@ public class Stop implements java.io.Serializable {
 	private Station _station;
 	private Service _service;
 
-	public Stop(Station station, LocalTime schedule){
+	Stop(Station station, LocalTime schedule){
 		_station = station;
 		_station.addStop(this);
 		setSchedule(schedule);
 	}
 	
-	public LocalTime getSchedule() {
+	LocalTime getSchedule() {
 		return _schedule;
 	}
 	
-	public void setSchedule(LocalTime schedule){
+	void setSchedule(LocalTime schedule){
 		_schedule = schedule;
 	}
 	
-	public void setService(Service service){
+	void setService(Service service){
 		_service = service;
 	}
 	
-	public Service getService(){
+	Service getService(){
 		return _service;
 	}
 }

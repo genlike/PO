@@ -13,8 +13,8 @@ public class NewParser {
 
   private TrainCompany _trainCompany;
 
-  public void parseFile(String fileName) throws ImportFileException {
-    // _trainCompany = criar TrainCompany
+  TrainCompany parseFile(String fileName) throws ImportFileException {
+     _trainCompany = new TrainCompany();
 
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
       String line;
@@ -42,7 +42,7 @@ public class NewParser {
         break;
 
       case "ITINERARY":
-        parseItinerary(components);
+        //parseItinerary(components);
         break;
 
      default:
@@ -55,26 +55,25 @@ public class NewParser {
       throw new ImportFileException("invalid number of arguments in passenger line: " + components.length);
 
     String passengerName = components[1];
-
-    // criar o passageiro registá-lo na TrainCompany
+    _trainCompany.addPassenger(passengerName);
   }
 
   private void parseService(String[] components) {
     double cost = Double.parseDouble(components[2]);
     int serviceId = Integer.parseInt(components[1]);
+    Service s;
 
-    // criar o serviço com o id e custo e associar ao TrainCompany
+    s = _trainCompany.addService(serviceId, cost);
     
     for (int i = 3; i < components.length; i += 2) {
       String time = components[i];
       String stationName = components[i + 1];
       LocalTime ltime = LocalTime.parse(time);
-
-      // adicionar TrainStop com ltime e Station com o nome stationName
-    }
+      s.addStop(_trainCompany.addStation(stationName),ltime);
+      }
   }
 
-  private void parseItinerary(String[] components) {
+  private void parseItinerary(String[] components) throws ImportFileException {
     if (components.length < 4)
       throw new ImportFileException("Invalid number of elements in itinerary line: " + components.length);
 

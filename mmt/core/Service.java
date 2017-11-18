@@ -11,25 +11,25 @@ public class Service  implements java.io.Serializable {
 	private final int 	_idService;
 	private double		_totalCost;
 	private Duration 	_totalDuration;
-	private List<Stop> 	_listaStops;
+	private List<Stop> 	_listStops;
 
-	public Service (int idService,double totalCost) {
+	Service (int idService,double totalCost) {
 		_idService = idService;
 		_totalCost = totalCost;
-		_listaStops = new ArrayList<>();		
+		_listStops = new ArrayList<>();		
 	}
 	
 
-	public Duration getDuration(Stop startStop, Stop finalStop){
+	Duration getDuration(Stop startStop, Stop finalStop){
 		return Duration.between(startStop.getSchedule(),finalStop.getSchedule());
 	}
 	
-	public double getCost(Stop startStop, Stop finalStop){			
+	double getCost(Stop startStop, Stop finalStop){			
 		return ((getDuration(startStop, finalStop).toMinutes())*_totalCost)/_totalDuration.toMinutes();
 	}
 
-	public List<Stop> getStops() {
-		return _listaStops;
+	List<Stop> getStops() {
+		return _listStops;
 	}
 
 	public String toString() {
@@ -41,6 +41,6 @@ public class Service  implements java.io.Serializable {
 		Stop a = new Stop(stationStop, arrivalDate);
 		a.setService(this);
 		stationStop.addStop(a);
-		_listaStops.add(a);
+		_listStops.add(a);
 	}		
 }

@@ -7,24 +7,24 @@ public class Station implements java.io.Serializable {
 	private String _description;
 	private List<Stop> listaStops;
 
-	public Station(String description){
+	Station(String description){
 		setDescription(description);
 		listaStops = new ArrayList<>();
 	}
 	
-	public String getDescription(){
+	String getDescription(){
 		return _description;
 	}
 	
-	public void setDescription(String description){
+	void setDescription(String description){
 		_description = description;		
 	}
 	
-	public void addStop(Stop a){
+	void addStop(Stop a){
 		listaStops.add(a);
 	}
 	
-	public List<Stop> getStops(){
+	List<Stop> getStops(){
 		return listaStops;
 	}
 }
