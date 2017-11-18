@@ -11,12 +11,12 @@ public class Service  implements java.io.Serializable {
 	private final int 	_idService;
 	private double		_totalCost;
 	private Duration 	_totalDuration;
-	private List<Stop> 	_listaStops;
+	private List<Stop> 	_listStops;
 
 	Service (int idService,double totalCost) {
 		_idService = idService;
 		_totalCost = totalCost;
-		_listaStops = new ArrayList<>();		
+		_listStops = new ArrayList<>();		
 	}
 	
 
@@ -29,7 +29,7 @@ public class Service  implements java.io.Serializable {
 	}
 
 	List<Stop> getStops() {
-		return _listaStops;
+		return _listStops;
 	}
 
 	String toString() {
@@ -41,6 +41,6 @@ public class Service  implements java.io.Serializable {
 		Stop a = new Stop(stationStop, arrivalDate);
 		a.setService(this);
 		stationStop.addStop(a);
-		_listaStops.add(a);
+		_listStops.add(a);
 	}		
 }

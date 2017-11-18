@@ -29,24 +29,43 @@ public class TrainCompany implements java.io.Serializable {
 
   private int _nextPassengerID = 0;
   
-  private List<Service> listaServicos = new ArrayList<Service>();
-  private List<Station> listaEstacoes = new ArrayList<Station>();
-  private Map<int,Passenger> listaPassageiros = new HashMap<>();
+  private Map<int,Service> listService;
+  private Map<String,Station> listEstacoes;
+  private Map<int,Passenger> listPassageiros;
 
   //TODO
+  TrainCompany(){
+    listService = new HashMap<>();
+    listEstacoes = new HashMap<>();
+    listPassageiros = new HashMap<>();
+  }
   /*FIXME
    * add methods for
    *   registerPassenger, changePassengerName
    *   searchItineraries, commitItinerary
    */
-  int getNextPassangerID(){
+  int getNextPassengerID(){
     return _nextPassengerID++;
   }
   
-  //Passenger criarPassageiro(String name) {
+  Passenger addPassenger(String name) {
+    int id = getNextPassengerID();
+    Passenger p = new Passenger(id, name);
+    listaPassageiros.put(id, p);
+    return p;
+  }
   
-  //}
-  
+  Service addService(int id, double cost){
+    Service s = new Service(id, cost);
+    listaServicos.add(id,s);
+    return s;
+  }
   //FIXME implement other functions if necessary
-
+  Station addStation(String name){
+    Station s = listEstacoes.get(name);
+    if (s) { return s; }
+    s = new Station(name);
+    listEstacoes.put(name, s);
+    return s;
+  }
 }
