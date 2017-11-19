@@ -39,11 +39,11 @@ public abstract class Category implements java.io.Serializable {
    * @param description do tipo String
    */
 	 void setDiscount(String description){
-		if ( description == "Normal" )
+		if ( description == "NORMAL" )
 			_discount = 0;
-		else if ( description == "Frequent" )
+		else if ( description == "FREQUENT" )
 			_discount = 0.15;
-		else if ( description == "Special" )
+		else if ( description == "SPECIAL" )
 			_discount = 0.5;
 	}
 
@@ -58,7 +58,7 @@ public abstract class Category implements java.io.Serializable {
 
 	@Override
 	public String toString(){
-		return "" + _discount;
+		return "" + _description;
 	}
 
 

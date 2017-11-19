@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
-import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class Service  implements java.io.Serializable, Comparable<Service> {
 	
@@ -40,7 +40,8 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	int getidService() { return _idService; }
 
 	public String toString() {
-	  String s = String.format("Serviço #%d @ %.2f \n",getidService(), getTotalCost());
+	  String s = String.format(Locale.US,"Serviço #%d @ %.2f\n",
+		getidService(), getTotalCost());
 	  for (Stop st: _listStops) {
 	    s = s + st + "\n";
 	  }

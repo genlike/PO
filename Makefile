@@ -1,2 +1,8 @@
+mmt/app/App.class:
+	javac -cp po-uilib.jar:. `find mmt -name *.java`
+
+run:
+	java -cp po-uilib.jar:. -Dimport=test.import  mmt.app.App
+
 clean:
-	rm -lf `find mmt -name *.class`
+	find mmt -name *.class -delete

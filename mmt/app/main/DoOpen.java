@@ -31,6 +31,7 @@ public class DoOpen extends Command<TicketOffice> {
     _form.parse();
     try {
       _receiver.load(_filepath.value());
+      System.setProperty("savefile", _filepath.value());
     } catch (FileNotFoundException fnfe) {
       _display.popup(Message.fileNotFound());
     } catch (ClassNotFoundException | IOException e) {

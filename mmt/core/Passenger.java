@@ -1,6 +1,7 @@
 package mmt.core;
 
 import java.time.Duration;
+import java.util.Locale;
 
 public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 /**
@@ -112,13 +113,16 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	Duration getTotalTime(){
 		return _totalTravelTime;
 	}
+	double getTotalCost() {
+		return _totalCost; 
+	}
 
 @Override
 
 	public String toString(){
-	  return String.format("%d|%s|%s|%d|%d|%02d:%02d", 
-	  getId(), getName(), getCategory(), getTotalItenerary(), 0
-	, getTotalTime().toHours(),getTotalTime().toMinutes());
+	  return String.format(Locale.US,"%d|%s|%s|%d|%.2f|%02d:%02d", 
+	  getId(), getName(), getCategory(), getTotalItenerary(), getTotalCost(),
+	  getTotalTime().toHours(),getTotalTime().toMinutes());
 	}
 
 	public int compareTo(Passenger p){

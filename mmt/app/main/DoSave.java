@@ -26,10 +26,10 @@ public class DoSave extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    String datafile = System.getProperty("out");
+    String datafile = System.getProperty("savefile");
     if (datafile == null) {
       _form.parse();
-      System.setProperty("out", _filepath.value());
+      System.setProperty("savefile", _filepath.value());
       datafile = _filepath.value();
     }
     try {
