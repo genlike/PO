@@ -106,27 +106,43 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		_status = status;
 	}
 
+/**
+   * Devolve totais itenerarios comprados pelo passageiro
+   * @return inteiro com o _totalItenerary
+   */
 	int getTotalItenerary(){
 		return _totalItenerary;
 	}
 
+/**
+   * Devolve tempo total que um passageiro comprou
+   * @return tempo total viajado
+   */
 	Duration getTotalTime(){
 		return _totalTravelTime;
 	}
+
+/**
+   * Devolve total pago pelo passageiro
+   * @return double com o valor pago
+   */
 	double getTotalCost() {
 		return _totalCost; 
 	}
-
-@Override
-
+/**
+	* Impressao formatada de um passageiro
+*/
+	@Override
 	public String toString(){
 	  return String.format(Locale.US,"%d|%s|%s|%d|%.2f|%02d:%02d", 
 	  getId(), getName(), getCategory(), getTotalItenerary(), getTotalCost(),
 	  getTotalTime().toHours(),getTotalTime().toMinutes());
 	}
-
+/**
+	* Funcao de comparacao de clientes pelos seus ids, ordenecao crescente
+	* @return retorna um valor inteiro positivo, zero ou negativo, para indicar se e maior ou menor que o passageiro dado.
+*/
 	public int compareTo(Passenger p){
-    	return this.getId() - p.getId();
-  }
-
+	  return this.getId() - p.getId();
+	}
 }

@@ -51,10 +51,9 @@ public abstract class Category implements java.io.Serializable {
    * Devolve qual o desconto relativo a cada categoria 
    * @return _discount do tipo double
    */
-	 double getDiscount(){
+	double getDiscount(){
 		return _discount;
 	}
-// Este desconto e' relativo a cada cliente ou e' o da categoria?
 
 	@Override
 	public String toString(){

@@ -3,28 +3,63 @@ package mmt.core;
 import java.time.LocalTime;
 
 public class Stop implements java.io.Serializable {
+/**
+	* Classe que representa um Servico, que é composto por uma agregacao de Paragens
+	* @author Ines Albano	 87664
+	* @author Ricardo Silva  87700
+	* @version 1.0
+*/	
+/**
+	* Hora que dado servico alcanca esta estacao
+*/
 	private LocalTime _schedule;
+/**
+	* Estacao a que esta associada esta paragem
+*/
 	private Station _station;
+/**
+	* Servico a que esta associado esta paragem
+*/
 	private Service _service;
-
+/**
+	* Construtor da paragem, assumido que está a ser chamado pelo serviço
+	* forma a ter o campo _service preenchido.
+	* @param station Estacao a que este stop estara relacionado
+	* @param schedule Sera a hora a que o servico chega a estacao
+*/
 	Stop(Station station, LocalTime schedule){
 		_station = station;
 		_station.addStop(this);
 		setSchedule(schedule);
 	}
-		
+/**
+	* Funcao para alterar a hora da paragem
+*/
 	void setSchedule(LocalTime schedule){
 		_schedule = schedule;
 	}
-	
+/**
+	* Funcao para alterar o servico.
+*/
 	void setService(Service service){
 		_service = service;
 	}
-	
+/**
+	* Funcao que retorna a hora de paragem
+*/	
 	LocalTime getSchedule() { return _schedule; }
+/**
+	* Funcao que retorna o servico associado
+*/	
 	Service getService(){ return _service; }
+/**
+	* Funcao que retorna a estacao associada
+*/	
 	Station getStation(){ return _station; }
-
+/**
+	* Impressao formatada da paragem
+	* @see mmt.core.Service#toString()
+*/
 	public String toString() {
 	  return String.format("%02d:%02d %s", getSchedule().getHour(),getSchedule().getMinute(),getStation());
 	}
