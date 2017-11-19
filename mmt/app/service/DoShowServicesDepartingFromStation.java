@@ -30,13 +30,10 @@ public class DoShowServicesDepartingFromStation extends Command<TicketOffice> {
   public final void execute() throws DialogException {
     _form.parse();
     try{
-      for(String s: _receiver.getIsServiceDeparture(_name.value())){
-        _display.addLine(s);
-      }
+      _display.addLine(_receiver.getIsServiceDeparture(_name.value()));
     } catch (NoSuchStationNameException ex) {
     	throw new mmt.app.exceptions.NoSuchStationException(_name.value());
     }
     _display.display();
   }
-
 }

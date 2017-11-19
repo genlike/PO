@@ -21,9 +21,7 @@ public class DoShowAllServices extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    for (String s : _receiver.exportListofServices()){
-      _display.addLine(s);
-    }
+    _display.addLine( _receiver.exportListofServices());
     _display.display();
   }
 }

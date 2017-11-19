@@ -24,13 +24,8 @@ public class DoShowAllPassengers extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-
-  for(String p : _receiver.exportListOfAllPassenger()){
-    _display.addLine(p);
-  }
-
-  _display.display();
-
+    _display.addLine(_receiver.exportListOfAllPassenger());
+    _display.display();
   }
 
 }

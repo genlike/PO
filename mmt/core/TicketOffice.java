@@ -83,16 +83,16 @@ public class TicketOffice {
   
   //FIXME add other functions if necessary
 
-  public List<String> exportListofServices() {
-    List<String> listOfServices = new ArrayList<>();
+  public String exportListofServices() {
+    String stringOfServices = new String();
     List<Service> listOfServicesId = new ArrayList<>(_trainCompany.getListService().values());
 
     Collections.sort(listOfServicesId);
 
     for (Service s : listOfServicesId){
-      listOfServices.add(s.toString());
+      stringOfServices += s.toString()+"\n";
     }
-    return listOfServices;
+    return stringOfServices;
   }
 
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
@@ -108,17 +108,17 @@ public class TicketOffice {
     _trainCompany.addPassenger(name);
   }
 
-  public List<String> exportListOfAllPassenger() {
+  public String exportListOfAllPassenger() {
 
-    List<String> listAllPassengers = new ArrayList<>();
+    String stringAllPassengers = new String();
     List<Passenger> listPassengersId = new ArrayList<>(_trainCompany.getlistPassageiros().values());
 
     Collections.sort(listPassengersId);
 
     for (Passenger p : listPassengersId){
-      listAllPassengers.add(p.toString());
+      stringAllPassengers += p.toString() + "\n";
     }
-    return listAllPassengers;
+    return stringAllPassengers;
   }
 
   public String showPassengerById(int id) throws NoSuchPassengerIdException {
@@ -134,7 +134,7 @@ public class TicketOffice {
   }
 
   public String getIsServiceDeparture(String name) throws NoSuchStationNameException {
-    String listOfServices;
+    String stringOfServices = new String();
     Station st = _trainCompany.getListEstacoes().get(name);
     
     if (st == null) { throw new NoSuchStationNameException(name); }
@@ -142,9 +142,9 @@ public class TicketOffice {
     for (Stop stp: st.getStops()){
       Service s = stp.getService();
       if (s.isDeparture(stp)){
-        listOfServices.add(s.toString());
+        stringOfServices += s.toString() + "\n";
       }
     }
-    return listOfServices;
+    return stringOfServices;
   }  
 }
