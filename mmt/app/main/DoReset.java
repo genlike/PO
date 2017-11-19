@@ -12,19 +12,20 @@ import pt.tecnico.po.ui.Input;
 public class DoReset extends Command<TicketOffice> {
   
   //FIXME define input fields
-
+  private Input<Boolean> _bReset;
   /**
    * @param receiver
    */
   public DoReset(TicketOffice receiver) {
     super(Label.RESET, receiver);
-    //FIXME initialize input fields
+    _bReset = _form.addBooleanInput(Message.requestReset());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    //FIXME implement command
+    _form.parse();
+    if (_bReset.value()) {_receiver.reset();}
   }
 
 }

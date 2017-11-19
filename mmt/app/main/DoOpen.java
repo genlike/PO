@@ -28,6 +28,7 @@ public class DoOpen extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
+    _form.parse();
     try {
       _receiver.load(_filepath.value());
     } catch (FileNotFoundException fnfe) {

@@ -116,8 +116,9 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 @Override
 
 	public String toString(){
-		return String.format("%d|%s|%s|%d|%d|{0:HH:mm}", 
-			getId(), getName(), getCategory(), getTotalItenerary(), 0, getTotalTime());
+	  return String.format("%d|%s|%s|%d|%d|%02d:%02d", 
+	  getId(), getName(), getCategory(), getTotalItenerary(), 0
+	, getTotalTime().toHours(),getTotalTime().toMinutes());
 	}
 
 	public int compareTo(Passenger p){

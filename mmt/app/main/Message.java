@@ -51,6 +51,11 @@ public final class Message {
   public static String requestPassengerId() {
     return "Identificador do passageiro: ";
   }
+  
+  /** @return prompt for passenger id. */
+  public static String requestReset() {
+    return "Tem a certeza que quer fazer Reset?(s/n): ";
+  }
 
   /**
    * @param id

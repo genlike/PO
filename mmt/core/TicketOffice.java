@@ -50,7 +50,7 @@ public class TicketOffice {
 
   // Apenas quer limpar os iternerarios e os passageiros
 
-  public void save(String filename) throws FileNotFoundException, IOException{
+  public void save(String filename) throws IOException{
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
     out.writeObject(_trainCompany);
     //_trainCompany = (TrainCompany)out.readObject();

@@ -1,6 +1,6 @@
 package mmt.core;
 
-public abstract class Category{
+public abstract class Category implements java.io.Serializable {
 /**
 	* Classe responsavel pelo registo da categoria relativa ao passageiro
 	* @author Ines Albano	 87664

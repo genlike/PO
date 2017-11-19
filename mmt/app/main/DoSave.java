@@ -13,19 +13,31 @@ import pt.tecnico.po.ui.Input;
  */
 public class DoSave extends Command<TicketOffice> {
   
-  //FIXME define input fields
+  private Input<String> _filepath;
 
   /**
    * @param receiver
    */
   public DoSave(TicketOffice receiver) {
     super(Label.SAVE, receiver);
-    //FIXME initialize input fields
+    _filepath = _form.addStringInput(Message.newSaveAs());
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
-    //FIXME implement command
+    String datafile = System.getProperty("out");
+    if (datafile == null) {
+      _form.parse();
+      System.setProperty("out", _filepath.value());
+      datafile = _filepath.value();
+    }
+    try {
+      _receiver.save(datafile);
+    } catch (IOException e) {
+      // shouldn't happen in a controlled test setup
+      e.printStackTrace();
+    }
+
   }
 }
