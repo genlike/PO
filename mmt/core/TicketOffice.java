@@ -26,63 +26,78 @@ import java.util.Collections;
 
 import mmt.app.main.Message;
 
-//FIXME import other classes if necessary
 
 /**
  * Façade for handling persistence and other functions.
  */
+
 public class TicketOffice {
+  /**
+  * Classe responsavel pelo funcionamento da aplicacao
+  * @author Ines Albano    87664
+  * @author Ricardo Silva  87700
+  * @version 1.0
+  */
+
 
   /** The object doing most of the actual work. */
   private TrainCompany _trainCompany;
 
-  //private Message _message;
 
-  //FIXME define other fields
+  /**
+     * Contrutor que comeca por inicializar o objeto que faza maior parte do trabalho)
+     */
   public TicketOffice(){
     _trainCompany = new TrainCompany();
   }
+
+
+  /**
+     * Metodo que trata de limpar a lista de passageiros
+     * Posteriormente limpara a lista de itenerarios
+     */
   public void reset() {
     // TODO clear Itenerary
     _trainCompany.getlistPassageiros().clear();
-
   }
 
-  // Apenas quer limpar os iternerarios e os passageiros
 
+  /**
+     * Metodo que trata de guardar o _trainCompany num determinado ficheiro 
+     * @param filename do tipo String
+     */
   public void save(String filename) throws IOException{
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
     out.writeObject(_trainCompany);
-    //_trainCompany = (TrainCompany)out.readObject();
     out.close();
   }
 
+
+  /**
+     * Metodo que trata de ler o ficheiro de input 
+     * @param filename do tipo String
+     */
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
     ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
     _trainCompany = (TrainCompany)in.readObject();
     in.close();
   }
 
+  /**
+     * Metodo que trata de importar o ficheiro de input
+     * Passa pelo NewParser
+     * @param datafile do tipo String
+     */
   public void importFile(String datafile) throws ImportFileException {
     NewParser nP = new NewParser();
     _trainCompany = nP.parseFile(datafile);
   }
 
-  //FIXME complete and implement the itinerary search (and pre-commit store) method
-//  public /*FIXME choose return type */ searchItineraries(int passengerId, String departureStation, String arrivalStation, String departureDate,
-//                                              String departureTime) /*FIXME define thrown exceptions */ {
-    //FIXME implement method
-//  }
 
-  //FIXME complete and implement the itinerary commit method
-//  public /*FIXME choose return type */ commitItinerary(int passengerId, int itineraryNumber) /*FIXME define thrown exceptions */ {
-    //FIXME implement method
-//  }
-
-  //FIXME add methods for passenger registration and passenger name update
-  
-  //FIXME add other functions if necessary
-
+  /**
+     * Metodo que trata ordenar a Lista de Servicos 
+     * @return String com os servicos ordenados
+     */
   public String exportListofServices() {
     String stringOfServices = new String();
     List<Service> listOfServicesId = new ArrayList<>(_trainCompany.getListService().values());
@@ -95,44 +110,12 @@ public class TicketOffice {
     return stringOfServices;
   }
 
-  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
-    //_trainCompany.changePassengerName(id, newName);
-    Passenger p = _trainCompany.getlistPassageiros().get(id);
-    if (p == null) {
-      throw new NoSuchPassengerIdException(id);
-    }
-    p.setName(newName);
-  }
 
-  public void registerPassenger(String name){
-    _trainCompany.addPassenger(name);
-  }
-
-  public String exportListOfAllPassenger() {
-
-    String stringAllPassengers = new String();
-    List<Passenger> listPassengersId = new ArrayList<>(_trainCompany.getlistPassageiros().values());
-
-    Collections.sort(listPassengersId);
-
-    for (Passenger p : listPassengersId){
-      stringAllPassengers += p.toString() + "\n";
-    }
-    return stringAllPassengers;
-  }
-
-  public String showPassengerById(int id) throws NoSuchPassengerIdException {
-    Passenger p =_trainCompany.getlistPassageiros().get(id);
-    if (p == null) { throw new NoSuchPassengerIdException(id); }
-    return p.toString();
-  }
-
-  public String showServiceById(int id) throws NoSuchServiceIdException{
-    Service s = _trainCompany.getListService().get(id);
-    if (s == null) { throw new NoSuchServiceIdException(id); }
-    return s.toString();
-  }
-
+  /**
+     * Metodo que trata de listar servicos por partida
+     * @param name do tipo String
+     * @return lista de servicos com determinado local de partida 
+     */
   public String getIsServiceDeparture(String name) throws NoSuchStationNameException {
     String stringOfServices = new String();
     Station st = _trainCompany.getListEstacoes().get(name);
@@ -147,4 +130,69 @@ public class TicketOffice {
     }
     return stringOfServices;
   }  
+
+
+
+  /**
+     * Metodo que trata de alterar o nome de um passageiro ja existente
+     * @param id do tipo int, newName do tipo String
+     */
+  public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
+    Passenger p = _trainCompany.getlistPassageiros().get(id);
+    if (p == null) {
+      throw new NoSuchPassengerIdException(id);
+    }
+    p.setName(newName);
+  }
+
+
+  /**
+     * Metodo que trata de registar um passageiro
+     * @param name do tipo String
+     */
+  public void registerPassenger(String name){
+    _trainCompany.addPassenger(name);
+  }
+
+
+  /**
+     * Metodo que trata de ordenar a Lista de Passegeiros 
+     * @return String com os passageiros ordenados
+     */
+  public String exportListOfAllPassenger() {
+
+    String stringAllPassengers = new String();
+    List<Passenger> listPassengersId = new ArrayList<>(_trainCompany.getlistPassageiros().values());
+
+    Collections.sort(listPassengersId);
+
+    for (Passenger p : listPassengersId){
+      stringAllPassengers += p.toString() + "\n";
+    }
+    return stringAllPassengers;
+  }
+
+
+  /**
+     * Metodo que trata de listar passageiros por id
+     * @param id do tipo int
+     * @return String com passageiros ordenados 
+     */
+  public String showPassengerById(int id) throws NoSuchPassengerIdException {
+    Passenger p =_trainCompany.getlistPassageiros().get(id);
+    if (p == null) { throw new NoSuchPassengerIdException(id); }
+    return p.toString();
+  }
+
+
+  /**
+     * Metodo que trata de listar passageiros com dado id
+     * @param id do tipo int
+     * @return String com passageiro de id  
+     */
+  public String showServiceById(int id) throws NoSuchServiceIdException{
+    Service s = _trainCompany.getListService().get(id);
+    if (s == null) { throw new NoSuchServiceIdException(id); }
+    return s.toString();
+  }
 }
