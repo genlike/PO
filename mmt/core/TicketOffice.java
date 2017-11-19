@@ -133,14 +133,13 @@ public class TicketOffice {
     return s.toString();
   }
 
-  public List<String> getIsServiceDeparture(String name) throws NoSuchStationNameException {
-    List<String> listOfServices = new ArrayList<>();
+  public String getIsServiceDeparture(String name) throws NoSuchStationNameException {
+    String listOfServices;
     Station st = _trainCompany.getListEstacoes().get(name);
     
     if (st == null) { throw new NoSuchStationNameException(name); }
     
     for (Stop stp: st.getStops()){
-      System.out.println(stp.toString());
       Service s = stp.getService();
       if (s.isDeparture(stp)){
         listOfServices.add(s.toString());
