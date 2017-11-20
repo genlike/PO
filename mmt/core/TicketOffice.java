@@ -67,6 +67,7 @@ public class TicketOffice {
   /**
      * Metodo que trata de guardar o _trainCompany num determinado ficheiro 
      * @param filename do tipo String
+     * @throw IOException quando existe problema no ficheiro para exportacao da informacao
      */
   public void save(String filename) throws IOException{
     ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
@@ -78,6 +79,7 @@ public class TicketOffice {
   /**
      * Metodo que trata de ler o ficheiro de input 
      * @param filename do tipo String
+     * @throw FileNotFoundException, IOException, ClassNotFoundException quando ha problema com o ficheiro existente
      */
   public void load(String filename) throws FileNotFoundException, IOException, ClassNotFoundException {
     ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
@@ -89,6 +91,7 @@ public class TicketOffice {
      * Metodo que trata de importar o ficheiro de input
      * Passa pelo NewParser
      * @param datafile do tipo String
+     * @throw ImportFileException quando ha' problema na importacao do ficheiro
      */
   public void importFile(String datafile) throws ImportFileException {
     NewParser nP = new NewParser();
@@ -117,6 +120,7 @@ public class TicketOffice {
      * Metodo que trata de listar servicos por partida
      * @param name do tipo String
      * @return lista de servicos com determinado local de partida 
+     * @throw NoSuchStationNameException quando o nome da estacao dada nao existe
      */
   public String getIsServiceDeparture(String name) throws NoSuchStationNameException {
     String stringOfServices = new String();
@@ -144,6 +148,7 @@ public class TicketOffice {
   /**
      * Metodo que trata de alterar o nome de um passageiro ja existente
      * @param id do tipo int, newName do tipo String
+     * @throw NoSuchPassengerIdException quando o id do passageiro e' invalido
      */
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
     Passenger p = _trainCompany.getlistPassageiros().get(id);
@@ -184,7 +189,8 @@ public class TicketOffice {
   /**
      * Metodo que trata de listar passageiros por id
      * @param id do tipo int
-     * @return String com passageiros ordenados 
+     * @return String com passageiros ordenados
+     * @throw NoSuchPassengerIdException quando o id do passageiro e' invalido 
      */
   public String showPassengerById(int id) throws NoSuchPassengerIdException {
     Passenger p =_trainCompany.getlistPassageiros().get(id);
@@ -196,7 +202,8 @@ public class TicketOffice {
   /**
      * Metodo que trata de listar passageiros com dado id
      * @param id do tipo int
-     * @return String com passageiro de id  
+     * @return String com passageiro de id 
+     * @throw NoSuchServiceIdException quando o nome do servico nao e' valido 
      */
   public String showServiceById(int id) throws NoSuchServiceIdException{
     Service s = _trainCompany.getListService().get(id);
