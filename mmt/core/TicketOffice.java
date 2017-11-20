@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
+import java.time.LocalTime;
+import java.util.Map;
+import java.util.TreeMap;
 import mmt.app.main.Message;
 
 
@@ -118,6 +120,7 @@ public class TicketOffice {
      */
   public String getIsServiceDeparture(String name) throws NoSuchStationNameException {
     String stringOfServices = new String();
+    Map<LocalTime,Service> listOfServices = new TreeMap<LocalTime, Service>();
     Station st = _trainCompany.getListEstacoes().get(name);
     
     if (st == null) { throw new NoSuchStationNameException(name); }
@@ -125,8 +128,13 @@ public class TicketOffice {
     for (Stop stp: st.getStops()){
       Service s = stp.getService();
       if (s.isDeparture(stp)){
-        stringOfServices += s.toString() + "\n";
+        listOfServices.put(stp.getSchedule(), s);
       }
+    }
+
+
+    for(Service s : listOfServices.values()){
+      stringOfServices += s.toString() + "\n";
     }
     return stringOfServices;
   }  
