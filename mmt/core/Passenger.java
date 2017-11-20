@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.util.Locale;
 
 public class Passenger implements java.io.Serializable, Comparable<Passenger>{
-/**
+	/**
 	* Classe responsavel pelo registo relativo ao passageiro
 	* @author Ines Albano	 87664
 	* @author Ricardo Silva  87700
@@ -12,7 +12,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	* Todos os metodos sao package-private logo nao e' explicitado o nivel de acesso
 	*/
 
-/**
+	/**
 	* _id atributo relativo ao id do passageiro
 	* _name atributo relativo ao nome do passageiro
 	* _status atributo relativo ao estado - ativo/invativo - do passageiro

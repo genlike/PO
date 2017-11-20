@@ -42,6 +42,7 @@ public class NewParser {
         break;
 
       case "ITINERARY":
+	//Nao e para ser feito nesta entrega
         //parseItinerary(components);
         break;
 
@@ -89,8 +90,6 @@ public class NewParser {
       String departureTrainStop = segmentDescription[1];
       String arrivalTrainStop = segmentDescription[2];
 
-      // criar segmento com paragem em departureTrainStop e arrivalTrainStop
-      // adicionar segmento ao itinerario 
     }
 
     // adicionar o itinerário ao passageiro

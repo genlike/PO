@@ -40,11 +40,15 @@ public class TrainCompany implements java.io.Serializable {
   
   /**
     * listService - Serve para guardar a lista de todos os servicos
-    * listEstacoes - Serve para guardar a lista de estacoes 
-    * listPassageiros - Serve para guardar a lista de todos os passageiros
     */
   private Map<Integer,Service> listService;
+    /**
+      * listEstacoes - Serve para guardar a lista de estacoes 
+      */
   private Map<String,Station> listEstacoes;
+  /**
+    * listPassageiros - Serve para guardar a lista de todos os passageiros
+    */
   private Map<Integer,Passenger> listPassageiros;
 
 

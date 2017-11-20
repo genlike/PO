@@ -17,14 +17,14 @@ public class Station implements java.io.Serializable {
 /**
 	* Lista de paragens para conseguir identificar os varios servicoes desta estacao
 */
-	private List<Stop> listaStops;
+	private List<Stop> _listStops;
 /**
 	* Construtor
 	* @param description Descricao da estacao 
 */
 	Station(String description){
 		setDescription(description);
-		listaStops = new ArrayList<>();
+		_listStops = new ArrayList<>();
 	}
 
 /**
@@ -45,13 +45,13 @@ public class Station implements java.io.Serializable {
 	* @param a Adiciona dada paragem a lista de paragens 
 */
 	void addStop(Stop a){
-		listaStops.add(a);
+		_listStops.add(a);
 	}
 /**
 	* Retorna as paragens desta estacao.
 */	
 	List<Stop> getStops(){
-		return listaStops;
+		return _listStops;
 	}
 /**
 	* Retorna a descricao da estacao.
