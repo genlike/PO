@@ -7,4 +7,4 @@ run:
 clean:
 	find mmt -name *.class -delete
 jar:
-	jar cvf entregaIntermedia.jar mmt
+	jar cvf proj.jar mmt
