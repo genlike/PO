@@ -23,7 +23,6 @@ public abstract class Category implements java.io.Serializable {
    */
 	 Category(String description){
 		_description = description;
-		setDiscount(description);
 	}
 
 /**
@@ -38,13 +37,8 @@ public abstract class Category implements java.io.Serializable {
    * Define qual o desconto relativo a uma dada categoria
    * @param description do tipo String
    */
-	 void setDiscount(String description){
-		if ( description == "NORMAL" )
-			_discount = 0;
-		else if ( description == "FREQUENT" )
-			_discount = 0.15;
-		else if ( description == "SPECIAL" )
-			_discount = 0.5;
+	 protected void setDiscount(double value){
+		_discount = value;		
 	}
 
 /**

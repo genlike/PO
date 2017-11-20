@@ -12,5 +12,6 @@ public class Normal extends Category{
 */
 	Normal(){
 		super("NORMAL");
+		super.setDiscount(0);
 	}
 }

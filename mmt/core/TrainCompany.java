@@ -1,16 +1,5 @@
 package mmt.core;
 
-import mmt.core.exceptions.BadDateSpecificationException;
-import mmt.core.exceptions.BadEntryException;
-import mmt.core.exceptions.BadTimeSpecificationException;
-import mmt.core.exceptions.InvalidPassengerNameException;
-import mmt.core.exceptions.NoSuchDepartureException;
-import mmt.core.exceptions.NoSuchPassengerIdException;
-import mmt.core.exceptions.NoSuchServiceIdException;
-import mmt.core.exceptions.NoSuchStationNameException;
-import mmt.core.exceptions.NoSuchItineraryChoiceException;
-import mmt.core.exceptions.NonUniquePassengerNameException;
-
 import java.util.Map;
 import java.util.HashMap;
 
@@ -112,7 +101,9 @@ public class TrainCompany implements java.io.Serializable {
 
 
   /**
-    * Metodo que trata de dar a lista de servicos totais
+    * Metodo que trata de dar a lista de servicos totais, 
+    * e retornado mesmo a lista concreta porque queremos dar parte do
+    * ownership de alterar estas listas a classe que usar esta instancia
     * @return listaService que e a lista de todos os servicos
     */
   Map<Integer,Service> getListService() { 
@@ -121,6 +112,8 @@ public class TrainCompany implements java.io.Serializable {
 
   /**
     * Metodo que trata de dar a lista de estacoes totais
+    * e retornado mesmo a lista concreta porque queremos dar parte do
+    * ownership de alterar estas listas a classe que usar esta instancia
     * @return listaEstacoes que e a lista de todas as estacoes
     */
   Map<String,Station> getListEstacoes() { 
@@ -130,6 +123,8 @@ public class TrainCompany implements java.io.Serializable {
 
   /**
     * Metodo que trata de dar a lista de passageiros totais
+    * e retornado mesmo a lista concreta porque queremos dar parte do
+    * ownership de alterar estas listas a classe que usar esta instancia
     * @return listaPassageiros que e a lista de todos os passageiros
     */
   Map<Integer,Passenger> getlistPassageiros() { 

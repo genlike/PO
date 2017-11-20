@@ -12,5 +12,6 @@ public class Special extends Category{
 */
 	Special(){
 		super("SPECIAL");
+		super.setDiscount(0.5);
 	}
 }

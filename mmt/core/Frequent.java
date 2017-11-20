@@ -12,5 +12,7 @@ public class Frequent extends Category{
 */
 	Frequent(){
 		super("FREQUENT");
+		super.setDiscount(0.15);
 	}
+	
 }
