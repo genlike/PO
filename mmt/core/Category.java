@@ -31,7 +31,7 @@ public abstract class Category implements java.io.Serializable {
    * @return _description do tipo String
    */
 	 String getCategoryDescription(){
-		return _description;
+		return "" + _description;
 	}
 
 /**

@@ -45,9 +45,9 @@ public class Stop implements java.io.Serializable {
 		_service = service;
 	}
 /**
-	* Funcao que retorna a hora de paragem
+	* Funcao que retorna uma copia da hora de paragem
 */	
-	LocalTime getSchedule() { return _schedule; }
+	LocalTime getSchedule() { return _schedule.plusHours(0); }
 /**
 	* Funcao que retorna o servico associado
 */	

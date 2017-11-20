@@ -70,11 +70,11 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 		return _idService;
 	}
 /**
-	* @return _listStops retorna a lista de paragens do Servico
+	* Envia uma copia da lista de paragens do Servico
+	* @return _listStops lista de stops copiada.
 */
 	List<Stop> getStops() {
-		return _listStops;
-		
+		return new ArrayList<Stop>(_listStops);
 	}
 /**
 	* @return _totalCost retorna o custo total

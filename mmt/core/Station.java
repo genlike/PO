@@ -31,14 +31,14 @@ public class Station implements java.io.Serializable {
 	* Retorna a descricao da estacao
 */	
 	String getDescription(){
-		return _description;
+		return "" + _description;
 	}
 /**
 	* Funcao para alterar a descricao da estacao.
 	* @param description nova descricao da estacao.
 */
 	void setDescription(String description){
-		_description = description;		
+		_description = description;
 	}
 /**
 	* Funcao que cria a ligacao da estacao com dado servico atravez da sua paragem
@@ -48,15 +48,15 @@ public class Station implements java.io.Serializable {
 		_listStops.add(a);
 	}
 /**
-	* Retorna as paragens desta estacao.
+	* Retorna uma copia da lista de paragens.
 */	
 	List<Stop> getStops(){
-		return _listStops;
+		return new ArrayList<Stop>(_listStops);
 	}
 /**
 	* Retorna a descricao da estacao.
 */
 	public String toString() {
-		return _description;
+		return "" + _description;
 	}
 }

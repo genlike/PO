@@ -54,7 +54,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * @return String com o nome do passageiro
    */ 
 	 String getName(){
-		return _name;
+		return "" + _name;
 	}
 
 /**
@@ -69,8 +69,8 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * Devolve categoria a que o passageiro pertence
    * @return categoria do tipo Category
    */
-	 Category getCategory(){
-		return _category;
+	 String getCategory(){
+		return _category.getCategoryDescription();
 	}
 
 /**
@@ -119,7 +119,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * @return tempo total viajado
    */
 	Duration getTotalTime(){
-		return _totalTravelTime;
+		return _totalTravelTime.plus(Duration.ZERO);
 	}
 
 /**
