@@ -2,6 +2,7 @@ package mmt.core;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Station implements java.io.Serializable {
 /**
@@ -51,7 +52,7 @@ public class Station implements java.io.Serializable {
 	* Retorna uma copia da lista de paragens.
 */	
 	List<Stop> getStops(){
-		return new ArrayList<Stop>(_listStops);
+		return Collections.unmodifiableList(_listStops);
 	}
 /**
 	* Retorna a descricao da estacao.

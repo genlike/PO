@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
-
+import java.util.Collections;
 public class Service  implements java.io.Serializable, Comparable<Service> {
 
 /**
@@ -74,7 +74,7 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	* @return _listStops lista de stops copiada.
 */
 	List<Stop> getStops() {
-		return new ArrayList<Stop>(_listStops);
+		return Collections.unmodifiableList(_listStops);
 	}
 /**
 	* @return _totalCost retorna o custo total

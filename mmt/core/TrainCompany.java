@@ -1,5 +1,23 @@
 package mmt.core;
 
+import mmt.core.exceptions.BadDateSpecificationException;
+import mmt.core.exceptions.BadTimeSpecificationException;
+import mmt.core.exceptions.ImportFileException;
+import mmt.core.exceptions.MissingFileAssociationException;
+import mmt.core.exceptions.NoSuchPassengerIdException;
+import mmt.core.exceptions.NoSuchServiceIdException;
+import mmt.core.exceptions.NoSuchStationNameException;
+import mmt.core.exceptions.NoSuchItineraryChoiceException;
+import mmt.core.exceptions.NonUniquePassengerNameException;
+
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.time.LocalTime;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -30,24 +48,25 @@ public class TrainCompany implements java.io.Serializable {
   /**
     * listService - Serve para guardar a lista de todos os servicos
     */
-  private Map<Integer,Service> listService;
+  private Map<Integer,Service> _listService;
     /**
       * listEstacoes - Serve para guardar a lista de estacoes 
       */
-  private Map<String,Station> listEstacoes;
+  private Map<String,Station> _listEstacoes;
   /**
     * listPassageiros - Serve para guardar a lista de todos os passageiros
     */
-  private Map<Integer,Passenger> listPassageiros;
+  private Map<Integer,Passenger> _listPassageiros;
 
 
   /**
-    * Contrutor que comeca por inicializar as listas de servicos, passageiros e estacoes
+    * Contrutor que comeca por inicializar as listas de servicos, 
+    * passageiros e estacoes
     */
   TrainCompany(){
-    listService = new HashMap<>();
-    listEstacoes = new HashMap<>();
-    listPassageiros = new HashMap<>();
+    _listService = new HashMap<>();
+    _listEstacoes = new HashMap<>();
+    _listPassageiros = new HashMap<>();
   }
 
 
@@ -60,7 +79,13 @@ public class TrainCompany implements java.io.Serializable {
     return _nextPassengerID++;
   }
   
-
+  /**
+     * Metodo que trata de limpar a lista de passageiros
+     * Posteriormente limpara a lista de itenerarios a qual os clientes estao relacionados
+     */
+  void reset() {
+    _listPassageiros.clear();
+  }
   /**
     * Metodo que trata de adicionar um novo passageiro a lista de passageiros
     * @param name do tipo String
@@ -69,7 +94,7 @@ public class TrainCompany implements java.io.Serializable {
   Passenger addPassenger(String name) {
     Integer id = getNextPassengerID();
     Passenger p = new Passenger(id.intValue(), name);
-    listPassageiros.put(id, p);
+    _listPassageiros.put(id, p);
     return p;
   }
   
@@ -81,54 +106,117 @@ public class TrainCompany implements java.io.Serializable {
     */
   Service addService(Integer id, double cost){
     Service s = new Service(id, cost);
-    listService.put(id,s);
+    _listService.put(id,s);
     return s;
   }
  
 
   /**
     * Metodo que trata de adicionar uma nova estacao a lista de estacoes
+    * caso a estacao ja exista devolve a instancia desta
     * @param name do tipo String
     * @return s nova estacao que foi adicionada
     */
   Station addStation(String name){
-    Station s = listEstacoes.get(name);
+    Station s = _listEstacoes.get(name);
     if (!(s==null)) { return s; }
     s = new Station(name);
-    listEstacoes.put(name, s);
+    _listEstacoes.put(name, s);
     return s;
   }
 
-
   /**
-    * Metodo que trata de dar a lista de servicos totais, 
-    * e retornado mesmo a lista concreta porque queremos dar parte do
-    * ownership de alterar estas listas a classe que usar esta instancia
-    * @return listaService que e a lista de todos os servicos
-    */
-  Map<Integer,Service> getListService() { 
-	return listService; 
+     * Metodo que imprime dado servico dado o id
+     * @param id do tipo int
+     * @return String com passageiro de id 
+     * @throws NoSuchServiceIdException quando o nome do servico nao e' valido 
+     */
+  String showServiceById(int id) throws NoSuchServiceIdException{
+    Service s = _listService.get(id);
+    if (s == null) { throw new NoSuchServiceIdException(id); }
+    return s.toString();
+  }
+  /**
+     * Metodo que imprime dado passageiro dado o id
+     * @param id do tipo int
+     * @return String com passageiros ordenados
+     * @throws NoSuchPassengerIdException quando o id do passageiro e' invalido 
+     */
+  String showPassengerById(int id) throws NoSuchPassengerIdException {
+    Passenger p = _listPassageiros.get(id);
+    if (p == null) { throw new NoSuchPassengerIdException(id); }
+    return p.toString();
+  }
+  /**
+     * Metodo que trata de lista todos os passageiros ordenado por id
+     * @return String com os passageiros ordenados
+     */
+  String exportListOfAllPassenger() {
+
+    String stringAllPassengers = new String();
+    List<Passenger> listPassengersId = new ArrayList<>(_listPassageiros.values());
+
+    Collections.sort(listPassengersId);
+
+    for (Passenger p : listPassengersId){
+      stringAllPassengers += p.toString() + "\n";
+    }
+
+    return stringAllPassengers;
+  }
+  
+   /**
+     * Metodo que trata de alterar o nome de um passageiro ja existente
+     * @param id do tipo int, newName do tipo String
+     * @throws NoSuchPassengerIdException quando o id do passageiro e' invalido
+     */
+  void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
+    Passenger p = _listPassageiros.get(id);
+    if (p == null) { throw new NoSuchPassengerIdException(id); }
+    p.setName(newName);
+  }
+  /**
+     * Metodo que trata ordenar a Lista de Servicos, ordenado pelo id
+     * @return String com os servicos ordenados
+     */
+  String exportListofServices() {
+    String stringOfServices = new String();
+    List<Service> listOfServicesId = new ArrayList<>(_listService.values());
+
+    Collections.sort(listOfServicesId);
+
+    for (Service s : listOfServicesId){
+      stringOfServices += s.toString()+"\n";
+    }
+    return stringOfServices;
   }
 
-  /**
-    * Metodo que trata de dar a lista de estacoes totais
-    * e retornado mesmo a lista concreta porque queremos dar parte do
-    * ownership de alterar estas listas a classe que usar esta instancia
-    * @return listaEstacoes que e a lista de todas as estacoes
-    */
-  Map<String,Station> getListEstacoes() { 
-	return listEstacoes; 
-  }
-
 
   /**
-    * Metodo que trata de dar a lista de passageiros totais
-    * e retornado mesmo a lista concreta porque queremos dar parte do
-    * ownership de alterar estas listas a classe que usar esta instancia
-    * @return listaPassageiros que e a lista de todos os passageiros
-    */
-  Map<Integer,Passenger> getlistPassageiros() { 
-	return listPassageiros; 
-  }
+     * Retorna a impressao de servicos onde dada estacao e de partida, ordenada pela hora de partida
+     * @param name do tipo String
+     * @return lista de servicos com determinado local de partida 
+     * @throws NoSuchStationNameException quando o nome da estacao dada nao existe
+     */
+  String getIsServiceDeparture(String name) throws NoSuchStationNameException {
+    String stringOfServices = new String();
+    Map<LocalTime,Service> listOfServices = new TreeMap<LocalTime, Service>();
+    Station st = _listEstacoes.get(name);
+    
+    if (st == null) { throw new NoSuchStationNameException(name); }
+    
+    for (Stop stp: st.getStops()){
+      Service s = stp.getService();
+      if (s.isDeparture(stp)){
+        listOfServices.put(stp.getSchedule(), s);
+      }
+    }
+
+
+    for(Service s : listOfServices.values()){
+      stringOfServices += s.toString() + "\n";
+    }
+    return stringOfServices;
+  }  
 
 }
