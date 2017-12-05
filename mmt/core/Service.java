@@ -76,6 +76,15 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	List<Stop> getStops() {
 		return Collections.unmodifiableList(_listStops);
 	}
+
+
+	Stop getStop(Station name){
+		for (Stop st : _listStops){
+			if (st.getStation().equals(name))
+				return st;
+		}
+		return NULL; //Se nao tiver encontrado nenhuma paragem
+	}
 /**
 	* @return _totalCost retorna o custo total
 */
@@ -91,6 +100,9 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	    s = s + st + "\n";
 	  }
 	  return s.substring(0,s.length() -1);
+
+	  //TODO
+	  /* Criar um toString que recebe como argumentos como origem e destino Stops */
 	}
 /**
 	* Funcao que adiciona stops a lista
@@ -107,8 +119,8 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	* e feita de forma ordenada. 
 	* @param stp Se for o primeiro da lista indica que e estacao de partida.
 */
-        boolean isDeparture(Stop stp) {
-	  return getStops().indexOf(stp) == 0;
+	boolean isDeparture(Stop stp) {
+		return getStops().indexOf(stp) == 0;
 	}
 /**
 	* Funcao de comparacao natural do Servico, indica que ordenacao crescente.

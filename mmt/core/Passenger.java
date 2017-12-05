@@ -20,13 +20,14 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	* _totalTravelTime tempo total percorrido pelos percursos do passageiro
 	* _category categoria - normal/frequente/especial - do passageiro
 	*/
-	private final int 	_id;
-	private String 		_name;
-	private boolean 	_status;
-	private double 		_totalCost;
-	private Duration	_totalTravelTime;
-	private Category 	_category;
-	private int 		_totalItenerary;
+	private final int 		_id;
+	private String 			_name;
+	private boolean 		_status;
+	private double 			_totalCost;
+	private Duration		_totalTravelTime;
+	private Category 		_category;
+	private int 			_totalItenerary;
+	private List<Itineary>  _listItinerary;
 
 /**
    * Contrutor que comeca por identificar o passageiro com o nome
@@ -39,6 +40,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		_id = id;
 		_category = new Normal();
 		_totalTravelTime = Duration.ZERO;
+		_listItinerary = new ArrayList<>();
 	}
 
 /**
@@ -144,5 +146,14 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 */
 	public int compareTo(Passenger p){
 	  return this.getId() - p.getId();
+	}
+
+	void buyItinerary(Itineary it){
+		_listItinerary.add(it);
+
+		_totalCost += it.getTotalCost();
+
+		_totalTravelTime.plus(it.getTotalDuration());
+		//TODO atualizar categorias
 	}
 }

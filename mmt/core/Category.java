@@ -47,7 +47,7 @@ public abstract class Category implements java.io.Serializable {
    */
 	double getDiscount(){
 		return _discount;
-	}
+	} //meter como abtract
 
 	@Override
 	public String toString(){

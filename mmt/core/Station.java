@@ -60,4 +60,10 @@ public class Station implements java.io.Serializable {
 	public String toString() {
 		return "" + _description;
 	}
+
+	public boolean equals(Object obj){
+		if (obj instanceof Station)
+			return (this.getDescription() == ((Station)obj).getDescription());
+		return false;
+	}
 }

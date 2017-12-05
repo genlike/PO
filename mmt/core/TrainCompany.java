@@ -64,8 +64,8 @@ public class TrainCompany implements java.io.Serializable {
     * passageiros e estacoes
     */
   TrainCompany(){
-    _listService = new HashMap<>();
-    _listEstacoes = new HashMap<>();
+    _listService     = new HashMap<>();
+    _listEstacoes    = new HashMap<>();
     _listPassageiros = new HashMap<>();
   }
 
@@ -122,6 +122,13 @@ public class TrainCompany implements java.io.Serializable {
     if (!(s==null)) { return s; }
     s = new Station(name);
     _listEstacoes.put(name, s);
+    return s;
+  }
+
+
+  Station getStation(String name) throws NoSuchStationNameException{
+    Station s = _listEstacoes.get(name);
+    if ((s==null)){ throw new NoSuchStationNameException(name); }
     return s;
   }
 
@@ -212,11 +219,29 @@ public class TrainCompany implements java.io.Serializable {
       }
     }
 
-
     for(Service s : listOfServices.values()){
       stringOfServices += s.toString() + "\n";
     }
     return stringOfServices;
-  }  
+  } 
+
+
+
+  Segment newSegment(int serviceId, String origin, String destiny) throws NoSuchStationNameException{
+    Service s = _listService.get(id);
+    Station departure = getStation(origin);
+    Station arrival = getStation(destiny);
+
+    Stop st1 = s.getStop(departure);
+    Stop st2 = s.getStop(arrival);
+
+    return new Segment(st1, st2);
+  }
+
+
+  Passenger getPassenger(int id){
+    return _listPassageiros.get(id);
+  }
+
 
 }

@@ -42,8 +42,7 @@ public class NewParser {
         break;
 
       case "ITINERARY":
-	//Nao e para ser feito nesta entrega
-        //parseItinerary(components);
+        parseItinerary(components);
         break;
 
      default:
@@ -80,8 +79,9 @@ public class NewParser {
 
     int passengerId = Integer.parseInt(components[1]);
     LocalDate date = LocalDate.parse(components[2]);
+    Segment sg;
 
-    // criar um itinerário com data indicada
+    Itinerary it = new Itinerary(date);
 
     for (int i = 3; i < components.length; i++) {
       String segmentDescription[] = components[i].split("/");
@@ -90,8 +90,14 @@ public class NewParser {
       String departureTrainStop = segmentDescription[1];
       String arrivalTrainStop = segmentDescription[2];
 
+      sg = _trainCompany.newSegment(serviceId, departureTrainStop, arrivalTrainStop);
+
+      it.addSegment(sg);
     }
 
+    Passenger p = _trainCompany.getPassenger(passengerId);
+
     // adicionar o itinerário ao passageiro
+    p.buyItinerary(it);
   }
 }
