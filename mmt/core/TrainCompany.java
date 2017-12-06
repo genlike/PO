@@ -15,9 +15,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.security.Provider.Service;
 import java.time.LocalTime;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.text.Segment;
+
 import java.util.Map;
 import java.util.HashMap;
 
@@ -243,5 +247,80 @@ public class TrainCompany implements java.io.Serializable {
     return _listPassageiros.get(id);
   }
 
-
+  List<Itinerary> getSimpleItinerary(LocalDate ld, LocalTime lt, String stationOrigin, String stationDestination) throws NoSuchStationNameException {
+	  Station orig = getStation(stationOrigin);
+	  Station dest = getStation(stationDestination);
+	  List<Itinerary> listItinerary = new ArrayList<>();
+	  
+	  for(Stop st : orig.getStops()) {
+		if (st.getSchedule().isAfter(lt)) {
+			Segment sg = st.getService().createSegment(orig,dest)
+			if (sg) {
+				Itinerary it = new Itinerary(ld);	
+				it.addSegment(sg);
+				listItinerary.add(it);
+			}
+		}
+	  }
+	  return listItinerary;
+  }
+  
+  List<Itinerary> getItinerary(LocalDate ld, LocalTime lt, String stationOrigin, String stationDestination) throws NoSuchStationNameException {
+	  Station orig = getStation(stationOrigin);
+	  Station dest = getStation(stationDestination);
+	  
+	  List<Itinerary> listItinerary = new ArrayList<>();
+	  List<Segment> listSegments = new ArrayList<>();
+	  List<Service> listService = new ArrayList<>();
+	  List<Station> listStation = new ArrayList<>();
+	  for(Stop st : orig.getStops()) {
+		if (st.getSchedule().isAfter(lt)) {
+		listSegments.add(getRecursiveSegments(orig, dest,listService,listSegments, listStation));
+		
+		  if (!listSegments.isEmpty()) {
+			Itinerary it = new Itinerary(ld);
+			for (Segment sg : listSegments) {
+				it.addSegment(sg);
+			}
+			listItinerary.add(it);
+		  }
+		}
+	  }
+	  return listItinerary;
+  }
+  
+  
+  Itinerary getRecursiveItinerary(Stop stpOrigin, Station stDestination,List<Service> lstService,List<Station> listStation){
+	  Itinerary it;
+	  if (!lstService.contains(stpOrigin.getService())){
+		  lstService.add(stpOrigin.getService());
+		  Segment sg = createSegment(stpOrigin.getStation(), stDestination);
+		  if (sg) {
+			  it = new Itinerary();
+			  it.addSegment(sg);
+			  return it;
+		  } 
+	  }
+	  Stop current = stpOrigin.getNext();
+	  while (current) {
+		  Itinerary tmp;
+		  if (!lstStation.constains(current)) {
+			  lstStation.add(current.getStation());
+			  for(Stop stpStation : current.getStation().getStops()) {
+				  if (!lstService.contains(stpStation.getService())) {
+					  tmp = getRecursiveItinerary(current, stDestination, lstService, lstStation);
+				  }
+			   }
+			  if (it) {
+				  if (tmp && tmp.compareTo(it)>0) {
+					  it = tmp;
+				  }
+			  } else {
+				  it = tmp;
+			  }
+		  }
+		  current = stpOrigin.getNext();
+	  }
+	  return it;
+  }
 }
