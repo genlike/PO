@@ -1,7 +1,7 @@
 package mmt.core;
 
 import java.time.LocalTime;
-
+import java.util.List;
 public class Stop implements java.io.Serializable {
 /**
 	* Classe que representa um Servico, que Ã© composto por uma agregacao de Paragens
@@ -64,8 +64,8 @@ public class Stop implements java.io.Serializable {
 	  return String.format("%02d:%02d %s", getSchedule().getHour(),getSchedule().getMinute(),getStation());
 	}
 	/**
-	 * Funcao que retorna se um dado Stop é igual ao actual,
-	 * 2 Stops sao iguais, quando o seu Servico, Station e horario é igual,
+	 * Funcao que retorna se um dado Stop igual ao actual,
+	 * 2 Stops sao iguais, quando o seu Servico, Station e horario igual,
 	 * @param o objecto em questao a ser testado
 	 */
 	public boolean equals(Object o) {
@@ -82,9 +82,9 @@ public class Stop implements java.io.Serializable {
 	 * 
 	 */
 	Stop getNext() {
-		List<Stops> stps = getService().getStops();
-		i = indexOf(this) + 1;
-		if (i>stps.lenght()) 
+		List<Stop> stps = getService().getStops();
+		int i = stps.indexOf(this) + 1;
+		if (i>stps.size()) 
 			return null;
 		return stps.get(i);
 	}

@@ -1,12 +1,13 @@
 package mmt.core;
 
 import java.time.LocalDate;
+import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
-
-public class Itinerary implements java.io.Serializable{
+public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 
 	private LocalDate 	  _departureDate;
 	private double 	  	  _cost;
@@ -50,7 +51,7 @@ public class Itinerary implements java.io.Serializable{
 	}
 	
 	List<Segment> getSegments(){
-		return Collection.unmodifiableList(_listSegmentos);
+		return Collections.unmodifiableList(_listSegmentos);
 	}
 	
 	void extendItinerary(Itinerary it) {
@@ -59,5 +60,9 @@ public class Itinerary implements java.io.Serializable{
 	/*public String toString(){
 		TODO
 	}*/
+	public int compareTo(Itinerary p){  
+		return this.getTotalDuration().compareTo(p.getTotalDuration());
+	}
+
 
 }

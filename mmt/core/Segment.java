@@ -1,5 +1,8 @@
 package mmt.core;
 
+import java.time.Duration;
+
+
 public class Segment{
 
 	private Stop _origin;

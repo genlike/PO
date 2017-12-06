@@ -27,7 +27,7 @@ public class App {
         e.printStackTrace();
       }
     }
-
+    office.showAllItineraries();
     Menu menu = new MainMenu(office);
     menu.open();
 

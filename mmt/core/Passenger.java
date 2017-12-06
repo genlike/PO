@@ -2,6 +2,9 @@ package mmt.core;
 
 import java.time.Duration;
 import java.util.Locale;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	/**
@@ -27,7 +30,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	private Duration		_totalTravelTime;
 	private Category 		_category;
 	private int 			_totalItenerary;
-	private List<Itineary>  _listItinerary;
+	private List<Itinerary>  _listItinerary;
 
 /**
    * Contrutor que comeca por identificar o passageiro com o nome
@@ -148,7 +151,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	  return this.getId() - p.getId();
 	}
 
-	void buyItinerary(Itineary it){
+	void buyItinerary(Itinerary it){
 		_listItinerary.add(it);
 
 		_totalCost += it.getTotalCost();
@@ -156,4 +159,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		_totalTravelTime.plus(it.getTotalDuration());
 		//TODO atualizar categorias
 	}
+	
+	List<Itinerary> getItineraries() { return Collections.unmodifiableList(_listItinerary); }
+
 }

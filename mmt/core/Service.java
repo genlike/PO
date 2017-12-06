@@ -4,12 +4,8 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import java.util.Locale;
-
-import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
-
-import javafx.scene.paint.Stop;
-
 import java.util.Collections;
 public class Service  implements java.io.Serializable, Comparable<Service> {
 
@@ -88,7 +84,7 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 			if (st.getStation().equals(name))
 				return st;
 		}
-		return NULL; //Se nao tiver encontrado nenhuma paragem
+		return null; //Se nao tiver encontrado nenhuma paragem
 	}
 /**
 	* @return _totalCost retorna o custo total
@@ -119,15 +115,17 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	public String toStringSubset(Stop stStart, Stop stFinish) {
 		String s = String.format(Locale.US,"Serviço #%d @ %.2f\n",
 				getId(), getTotalCost());
-		if !(_listStops.contains(stStart)){
+		if (!_listStops.contains(stStart)){
 			return s;
 		}
 		ListIterator<Stop> listItr = _listStops.listIterator(_listStops.indexOf(stStart));
 		while (listItr.hasNext()) {
 			s += s + listItr.next() + "\n";
-			if stFinish.equals(listItr.next()) 
+			if (stFinish.equals(listItr.next())) { 
 				break;
+			}
 		}
+		return s;
 	}
 /**
 	* Funcao que adiciona stops a lista
