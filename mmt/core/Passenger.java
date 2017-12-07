@@ -94,6 +94,21 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		// FIXME implement when Itenerary is developed
 	}*/
 
+	void sortCategory(){
+		if (_totalCost <= 250){
+			Normal normal = new Normal();
+			setCategory(normal);
+		}
+		else if (_totalCost <= 2500){
+			Frequent frequent = new Frequent();
+			setCategory(frequent);
+		}
+		else{
+			Special special = new Special();
+			setCategory(special);
+		}
+	}
+
 
 /**
    * Devolve qual o estado do passageiro
@@ -158,6 +173,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 
 		_totalTravelTime.plus(it.getTotalDuration());
 		//TODO atualizar categorias
+		sortCategory();
 	}
 	
 	List<Itinerary> getItineraries() { return Collections.unmodifiableList(_listItinerary); }

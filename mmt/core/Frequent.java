@@ -7,12 +7,18 @@ public class Frequent extends Category{
 	* @author Ricardo Silva  87700
 	* @version 1.0
 */
-/**
-	* Construtor que define a categoria como sendo FREQUENT 
-*/
-	Frequent(){
-		super("FREQUENT");
-		super.setDiscount(0.15);
+
+
+	private static double _discount = 0.15;
+	private static String _description = "FREQUENT";
+	
+
+	double getDiscount(){
+		return _discount;
+	}
+
+	String getCategoryDescription(){
+		return _description;
 	}
 	
 }

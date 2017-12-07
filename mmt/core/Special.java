@@ -7,11 +7,16 @@ public class Special extends Category{
 	* @author Ricardo Silva  87700
 	* @version 1.0
 */
-/**
-	* Construtor que define a categoria como sendo SPECIAL 
-*/
-	Special(){
-		super("SPECIAL");
-		super.setDiscount(0.5);
+
+	private static double _discount = 0.5;
+	private static String _description = "SPECIAL";
+
+
+	double getDiscount(){
+		return _discount;
+	}
+
+	String getCategoryDescription(){
+		return _description;
 	}
 }

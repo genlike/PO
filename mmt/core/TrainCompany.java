@@ -256,8 +256,6 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 
-
-
   
   List<Itinerary> getItinerary(LocalDate ld, LocalTime lt, String stationOrigin, String stationDestination) {
 	  Station orig = searchStation(stationOrigin);
@@ -266,11 +264,12 @@ public class TrainCompany implements java.io.Serializable {
 	  List<Itinerary> listItinerary = new ArrayList<>();
 	  List<Service> listService = new ArrayList<>();
 	  List<Station> listStation = new ArrayList<>();
+
 	  for(Stop st : orig.getStops()) {
-		if (st.getSchedule().isAfter(lt)) {
-			Itinerary it = getRecursiveItinerary(st, dest,listService, listStation);		
-			if (it != null ) {listItinerary.add(it); }
-		}
+		  if (st.getSchedule().isAfter(lt)) {
+		  	Itinerary it = getRecursiveItinerary(st, dest,listService, listStation);		
+		  	if (it != null ) {listItinerary.add(it); }
+		  }
 	  }
 	  return listItinerary;
   }
@@ -279,6 +278,7 @@ public class TrainCompany implements java.io.Serializable {
   Itinerary getRecursiveItinerary(Stop stpOrigin, Station stDestination,List<Service> lstService,List<Station> lstStation){
 	Itinerary it = null;
 	Segment sg;
+
 	if (!lstService.contains(stpOrigin.getService())){
 		lstService.add(stpOrigin.getService());
 
@@ -290,32 +290,34 @@ public class TrainCompany implements java.io.Serializable {
 			  return it;
 		  } 
 	  }
+
 	  Stop current = stpOrigin.getNext();
 	  Stop prev = stpOrigin;
 	  Stop shortest = null;
+
 	  while (current != null) {
 		  Itinerary tmp = null;
 		  if (!lstStation.contains(current)) {
 			  lstStation.add(current.getStation());
 			  for(Stop stpStation : current.getStation().getStops()) {  
-				if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
-					tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
-					if (it != null) {
-				  		if (tmp != null && tmp.compareTo(it)<0) {
-					  		it = tmp;
-							shortest = stpStation;
-							
-				  		}
-			  		} else if (tmp != null) {
-				  		it = tmp;
-						shortest = stpStation;
-			 		}
-				}
-			   }
-			   
+				  if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
+				  	tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
+				  	if (it != null) {
+				    		if (tmp != null && tmp.compareTo(it)<0) {
+				  	  		it = tmp;
+                  shortest = stpStation;
+				    		}
+			   		} else if (tmp != null) {
+              it = tmp;
+				  		shortest = stpStation;
+            }
+				  }
+        }   
 		  }
+
 		  prev = current;
 		  current = current.getNext();
+
 	  }
 	  if( it != null) {
 	  	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(),shortest.getStation());

@@ -7,11 +7,16 @@ public class Normal extends Category{
 	* @author Ricardo Silva  87700
 	* @version 1.0
 */
-/**
-	* Construtor que define a categoria como sendo NORMAL 
-*/
-	Normal(){
-		super("NORMAL");
-		super.setDiscount(0);
+
+	private static double _discount = 0.0;
+	private static String _description = "NORMAL";
+
+
+	double getDiscount(){
+		return _discount;
+	}
+
+	String getCategoryDescription(){
+		return _description;
 	}
 }
