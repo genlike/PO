@@ -54,9 +54,6 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 		return Collections.unmodifiableList(_listSegmentos);
 	}
 	
-	void extendItinerary(Itinerary it) {
-		this._listSegmentos.addAll(it._listSegmentos);
-	}
 	/*public String toString(){
 		TODO
 	}*/

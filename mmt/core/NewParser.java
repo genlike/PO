@@ -93,9 +93,7 @@ public class NewParser {
       Service s = _trainCompany.searchService(serviceId);
       Station departure = _trainCompany.searchStation(departureTrainStop);
       Station arrival = _trainCompany.searchStation(arrivalTrainStop);
-
-      sg = _trainCompany.newSegment(s, departure, arrival);
-
+      sg = s.createSegment(departure, arrival);
       it.addSegment(sg);
     }
 

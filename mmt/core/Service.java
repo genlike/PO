@@ -40,7 +40,8 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	Service (int idService,double totalCost) {
 		_idService = idService;
 		_totalCost = totalCost;
-		_listStops = new ArrayList<>();		
+		_listStops = new ArrayList<>();
+		_totalDuration = Duration.ZERO;
 	}
 	
 /**
@@ -135,6 +136,9 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 		Stop a = new Stop(stationStop, arrivalDate);
 		a.setService(this);
 		_listStops.add(a);
+		if (_listStops.size() > 1) {
+			_totalDuration = Duration.between(_listStops.get(0).getSchedule(),a.getSchedule());
+		}
 	}
 
 /**

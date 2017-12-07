@@ -233,17 +233,6 @@ public class TrainCompany implements java.io.Serializable {
     return stringOfServices;
   } 
 
-
-
-  Segment newSegment(Service s, Station departure, Station arrival) {
-
-    Stop st1 = s.getStop(departure);
-    Stop st2 = s.getStop(arrival);
-
-    return new Segment(st1, st2);
-  }
-
-
   Passenger getPassenger(int id){
     return _listPassageiros.get(id);
   }
@@ -255,7 +244,7 @@ public class TrainCompany implements java.io.Serializable {
 	  
 	  for(Stop st : orig.getStops()) {
 		if (st.getSchedule().isAfter(lt)) {
-			Segment sg = newSegment(st.getService(), orig,dest);
+			Segment sg = st.getService().createSegment( orig,dest);
 			if (sg != null) {
 				Itinerary it = new Itinerary(ld);	
 				it.addSegment(sg);
@@ -265,6 +254,10 @@ public class TrainCompany implements java.io.Serializable {
 	  }
 	  return listItinerary;
   }
+
+
+
+
   
   List<Itinerary> getItinerary(LocalDate ld, LocalTime lt, String stationOrigin, String stationDestination) {
 	  Station orig = searchStation(stationOrigin);
@@ -284,11 +277,12 @@ public class TrainCompany implements java.io.Serializable {
   
   
   Itinerary getRecursiveItinerary(Stop stpOrigin, Station stDestination,List<Service> lstService,List<Station> lstStation){
-	  Itinerary it = null;
-	  if (!lstService.contains(stpOrigin.getService())){
-		  lstService.add(stpOrigin.getService());
+	Itinerary it = null;
+	Segment sg;
+	if (!lstService.contains(stpOrigin.getService())){
+		lstService.add(stpOrigin.getService());
 
-		  Segment sg = newSegment(stpOrigin.getService(),stpOrigin.getStation(), stDestination);
+		  sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
 
 		  if (sg != null) {
 			  it = new Itinerary();
@@ -297,35 +291,62 @@ public class TrainCompany implements java.io.Serializable {
 		  } 
 	  }
 	  Stop current = stpOrigin.getNext();
+	  Stop prev = stpOrigin;
+	  Stop shortest = null;
 	  while (current != null) {
 		  Itinerary tmp = null;
 		  if (!lstStation.contains(current)) {
 			  lstStation.add(current.getStation());
-			  for(Stop stpStation : current.getStation().getStops()) {
-				  if (!lstService.contains(stpStation.getService())) {
-					  tmp = getRecursiveItinerary(current, stDestination, lstService, lstStation);
-				  }
+			  for(Stop stpStation : current.getStation().getStops()) {  
+				if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
+					tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
+					if (it != null) {
+				  		if (tmp != null && tmp.compareTo(it)<0) {
+					  		it = tmp;
+							shortest = stpStation;
+							
+				  		}
+			  		} else if (tmp != null) {
+				  		it = tmp;
+						shortest = stpStation;
+			 		}
+				}
 			   }
-			  if (it != null) {
-				  if (tmp != null && tmp.compareTo(it)>0) {
-					  it = tmp;
-				  }
-			  } else {
-				  it = tmp;
-			  }
+			   
 		  }
-		  current = stpOrigin.getNext();
+		  prev = current;
+		  current = current.getNext();
+	  }
+	  if( it != null) {
+	  	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(),shortest.getStation());
+	  	it.addSegment(sg);
 	  }
 	  return it;
   }
 
 
-	void ItiTests() {
+	void ItiTests() throws NoSuchStationNameException {
 		for (Passenger p : _listPassageiros.values()){
 			for (Itinerary it : p.getItineraries()){
-				System.out.println("" + it);
+				System.out.println("Itinerario " + it);
+				for(Segment sg : it.getSegments()){
+					System.out.println(" Segment " + sg);
+				}
+			}
+		}
+		System.out.println("SIMPLE SEARCH");
+		for (Itinerary it : getSimpleItinerary(LocalDate.now(), LocalTime.now(), "Évora", "Lisboa - Oriente")){
+			System.out.println("Itinerario " + it);
+			for(Segment sg : it.getSegments()){
+				System.out.println(" Segment " + sg);
+			}
+		}
+		System.out.println("COMPLEX SEARCH");
+		for (Itinerary it : getItinerary(LocalDate.now(),  LocalTime.parse("06:00"), "Valenca", "Lisboa - Oriente")){
+			System.out.println("Itinerario " + it);
+			for(Segment sg : it.getSegments()){
+				System.out.println(" Segment " + sg);
 			}
 		}
 	}
-
 }

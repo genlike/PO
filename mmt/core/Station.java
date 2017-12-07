@@ -63,7 +63,7 @@ public class Station implements java.io.Serializable {
 
 	public boolean equals(Object obj){
 		if (obj instanceof Station)
-			return (this.getDescription() == ((Station)obj).getDescription());
+			return this.getDescription().equals(((Station)obj).getDescription());
 		return false;
 	}
 }

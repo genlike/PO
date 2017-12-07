@@ -83,8 +83,8 @@ public class Stop implements java.io.Serializable {
 	 */
 	Stop getNext() {
 		List<Stop> stps = getService().getStops();
-		int i = stps.indexOf(this) + 1;
-		if (i>stps.size()) 
+		int i = stps.indexOf(this)+1;
+		if (i>(stps.size()-1)) 
 			return null;
 		return stps.get(i);
 	}

@@ -5,6 +5,7 @@ import static pt.tecnico.po.ui.Dialog.IO;
 import mmt.core.TicketOffice;
 import mmt.core.exceptions.ImportFileException;
 
+
 import mmt.app.main.MainMenu;
 import pt.tecnico.po.ui.Menu;
 
@@ -26,8 +27,8 @@ public class App {
         // no behavior described: just present the problem
         e.printStackTrace();
       }
-    }
-    office.showAllItineraries();
+    } 
+
     Menu menu = new MainMenu(office);
     menu.open();
 
