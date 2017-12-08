@@ -24,7 +24,7 @@ public class Segment{
 		return s.getDuration(_origin, _destiny); 
 	}
 	public String toString() {
-		return _origin.toString() + " || " + _destiny.toString();
+		return _origin.getService().toStringSubset(_origin,destiny);
 	}
 	//TODO toString que chama o toString do Service
 }
