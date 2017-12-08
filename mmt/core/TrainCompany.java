@@ -151,7 +151,8 @@ public class TrainCompany implements java.io.Serializable {
   String getIsServiceDeparture(String name) throws NoSuchStationNameException {
     Station st = searchStation(name);
     if (st != null){
-    	return searchServiceByStation(st, new SearchServiceByDeparture());
+	SearchServiceByDeparture ssb = new SearchServiceByDeparture(st);
+    	return ssb.toString();
     } else {
 	throw new NoSuchStationNameException(name);
     }
@@ -166,25 +167,11 @@ public class TrainCompany implements java.io.Serializable {
   String getIsServiceArrival(String name) throws NoSuchStationNameException {
     Station st = searchStation(name);
     if (st != null){
-    	return searchServiceByStation(st, new SearchServiceByArrival());
+	SearchServiceByArrival ssa = new SearchServiceByArrival(st);
+    	return ssa.toString();
     } else {
 	throw new NoSuchStationNameException(name);
     }
-  }
-
-
-  String searchServiceByStation(Station st, FindServiceByStation fs){
-    String stringOfServices = new String();
-    List<Service> lstService;
-    
-    lstService = fs.findServicesByStation(st);
-    
-    for(Service s : lstService){
-      stringOfServices += s.toString() + "\n";
-    }
-    return stringOfServices;
-
-
   }
 
   /**
