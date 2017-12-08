@@ -101,7 +101,15 @@ public class TicketOffice {
     return _trainCompany.getIsServiceDeparture(name);
   }  
 
-
+  /**
+     * Metodo que trata de listar servicos por partida
+     * @param name do tipo String
+     * @return lista de servicos com determinado local de partida 
+     * @throws NoSuchStationNameException quando o nome da estacao dada nao existe
+     */
+  public String getIsServiceArrival(String name) throws NoSuchStationNameException {
+    return _trainCompany.getIsServiceArrival(name);
+  } 
 
   /**
      * Metodo que trata de alterar o nome de um passageiro ja existente
@@ -150,6 +158,14 @@ public class TicketOffice {
      */
   public String showServiceById(int id) throws NoSuchServiceIdException{
     return _trainCompany.showServiceById(id);
+  }
+
+
+  public String exportListOfAllItineraries() {
+	return _trainCompany.exportListOfAllItineraries();
+  }
+  public String showItinerariesById(int id) throws NoSuchPassengerIdException {
+	return _trainCompany.showItinerariesById(id);
   }
 
   public void test () throws NoSuchStationNameException {

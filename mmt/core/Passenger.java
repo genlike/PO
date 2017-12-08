@@ -144,7 +144,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	double getTotalCost() {
 		double discountedCost = 0;
 		for (Itinerary it : _lastTenItinerary)
-			discountedCost += it.getTotalCost();
+			if (it != null ) { discountedCost += it.getTotalCost(); }
 		return discountedCost; 
 	}
 /**
@@ -183,9 +183,10 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 
 	String printItineraries(){
 		String s = "== Passageiro " + getId() + ": " + getName() + " ==\n";
-      	for (Itinerary it : getItineraries())
-      		s += it.toString();
-      	return s;
+		int i = 0;
+      		for (Itinerary it : getItineraries())
+      			s += it.toString(i++);
+      		return s;
 	}
 
 }

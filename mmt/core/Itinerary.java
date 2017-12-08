@@ -5,7 +5,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.Locale;
 
 public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 
@@ -58,11 +58,11 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 		String s = String.format(Locale.US,"Itinerário %d @ %.2f\n",
 				id, getTotalCost());
 		for (Segment sg : getSegments()) {
-			s+= sg.toString + "\n";
+			s+= sg.toString() + "\n";
 		}
 		return s;
 	}
-	public int compareTo(Itinerary p){  
+	public int compareTo(Itinerary p) {  
 		return this.getTotalDuration().compareTo(p.getTotalDuration());
 	}
 

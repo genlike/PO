@@ -372,16 +372,16 @@ public class TrainCompany implements java.io.Serializable {
 
 
   String exportListOfAllItineraries(){
-    String s1;
-    List<Itinerary> temp;
-    for (Passenger p : _listPassageiros){
+    String s1 = new String();
+    for (Passenger p : _listPassageiros.values()){
       s1 += p.printItineraries();
     }
     return s1;
   }
 
-  String showItinerariesById(int id){
+  String showItinerariesById(int id) throws NoSuchPassengerIdException {
     Passenger p = _listPassageiros.get(id);
+    if (p == null ) { throw new NoSuchPassengerIdException(id);}
     return p.printItineraries();
 
   }
