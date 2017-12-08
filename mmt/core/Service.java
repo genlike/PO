@@ -142,14 +142,6 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	}
 
 /**
-	* Funcao que indica se dado Stop é paragem de partida aproveita-se que a ordem de insercao da lista <br>
-	* e feita de forma ordenada. 
-	* @param stp Se for o primeiro da lista indica que e estacao de partida.
-*/
-	boolean isDeparture(Stop stp) {
-		return getStops().indexOf(stp) == 0;
-	}
-/**
 	* Funcao de comparacao natural do Servico, indica que ordenacao crescente.
 	* @param s Servico que ira ser comparado com o Servico actual.
 	* @return retorna valor positivo, zero ou negativo para indicar a ordem. 

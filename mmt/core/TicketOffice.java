@@ -151,4 +151,8 @@ public class TicketOffice {
   public String showServiceById(int id) throws NoSuchServiceIdException{
     return _trainCompany.showServiceById(id);
   }
+
+  public void test () throws NoSuchStationNameException {
+	_trainCompany.ItiTests();
+	}
  }

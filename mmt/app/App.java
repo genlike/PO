@@ -28,6 +28,12 @@ public class App {
         e.printStackTrace();
       }
     } 
+    
+    try {
+	office.test();
+    } catch (Exception ex) {
+	System.out.println("Erro");
+    }
 
     Menu menu = new MainMenu(office);
     menu.open();

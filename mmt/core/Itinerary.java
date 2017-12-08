@@ -38,7 +38,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 		Duration duration = Duration.ZERO;
 
 		for (Segment sg : _listSegmentos)
-			duration.plus(sg.getDuration());
+			duration = duration.plus(sg.getDuration());
 
 		return duration;
 	}

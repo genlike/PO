@@ -134,10 +134,57 @@ public class TrainCompany implements java.io.Serializable {
     return s;
   }
 
+
+
   Service searchService(int id) {
     Service s = _listService.get(id);
     //if ((s==null)){ throw new NoSuchStationNameException(name); }
     return s;
+  }
+ 
+  /**
+     * Retorna a impressao de servicos onde dada estacao e de partida, ordenada pela hora de partida
+     * @param name do tipo String
+     * @return lista de servicos com determinado local de partida 
+     * @throws NoSuchStationNameException quando o nome da estacao dada nao existe
+     */
+  String getIsServiceDeparture(String name) throws NoSuchStationNameException {
+    Station st = searchStation(name);
+    if (st != null){
+    	return searchServiceByStation(st, new SearchServiceByDeparture());
+    } else {
+	throw new NoSuchStationNameException(name);
+    }
+  }
+
+  /**
+     * Retorna a impressao de servicos onde dada estacao e de partida, ordenada pela hora de partida
+     * @param name do tipo String
+     * @return lista de servicos com determinado local de partida 
+     * @throws NoSuchStationNameException quando o nome da estacao dada nao existe
+     */
+  String getIsServiceArrival(String name) throws NoSuchStationNameException {
+    Station st = searchStation(name);
+    if (st != null){
+    	return searchServiceByStation(st, new SearchServiceByArrival());
+    } else {
+	throw new NoSuchStationNameException(name);
+    }
+  }
+
+
+  String searchServiceByStation(Station st, FindServiceByStation fs){
+    String stringOfServices = new String();
+    List<Service> lstService;
+    
+    lstService = fs.findServicesByStation(st);
+    
+    for(Service s : lstService){
+      stringOfServices += s.toString() + "\n";
+    }
+    return stringOfServices;
+
+
   }
 
   /**
@@ -206,33 +253,6 @@ public class TrainCompany implements java.io.Serializable {
     return stringOfServices;
   }
 
-
-  /**
-     * Retorna a impressao de servicos onde dada estacao e de partida, ordenada pela hora de partida
-     * @param name do tipo String
-     * @return lista de servicos com determinado local de partida 
-     * @throws NoSuchStationNameException quando o nome da estacao dada nao existe
-     */
-  String getIsServiceDeparture(String name) throws NoSuchStationNameException {
-    String stringOfServices = new String();
-    Map<LocalTime,Service> listOfServices = new TreeMap<LocalTime, Service>();
-    Station st = _listEstacoes.get(name);
-    
-    if (st == null) { throw new NoSuchStationNameException(name); }
-    
-    for (Stop stp: st.getStops()){
-      Service s = stp.getService();
-      if (s.isDeparture(stp)){
-        listOfServices.put(stp.getSchedule(), s);
-      }
-    }
-
-    for(Service s : listOfServices.values()){
-      stringOfServices += s.toString() + "\n";
-    }
-    return stringOfServices;
-  } 
-
   Passenger getPassenger(int id){
     return _listPassageiros.get(id);
   }
@@ -280,15 +300,15 @@ public class TrainCompany implements java.io.Serializable {
 	Segment sg;
 
 	if (!lstService.contains(stpOrigin.getService())){
-		lstService.add(stpOrigin.getService());
-
-		  sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
-
+		lstService.add(stpOrigin.getService());			  		
+		sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
+		
 		  if (sg != null) {
+
 			  it = new Itinerary();
 			  it.addSegment(sg);
 			  return it;
-		  } 
+		  }
 	  }
 
 	  Stop current = stpOrigin.getNext();
@@ -296,28 +316,26 @@ public class TrainCompany implements java.io.Serializable {
 	  Stop shortest = null;
 
 	  while (current != null) {
-		  Itinerary tmp = null;
-		  if (!lstStation.contains(current)) {
-			  lstStation.add(current.getStation());
-			  for(Stop stpStation : current.getStation().getStops()) {  
-				  if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
-				  	tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
-				  	if (it != null) {
-				    		if (tmp != null && tmp.compareTo(it)<0) {
-				  	  		it = tmp;
-                  shortest = stpStation;
-				    		}
-			   		} else if (tmp != null) {
-              it = tmp;
-				  		shortest = stpStation;
-            }
-				  }
-        }   
-		  }
-
-		  prev = current;
-		  current = current.getNext();
-
+	    Itinerary tmp = null;
+	    if (!lstStation.contains(current.getStation())) {
+		for(Stop stpStation : current.getStation().getStops()) {  
+			if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
+				tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
+				if (it != null) {
+				   if (tmp != null && tmp.compareTo(it)<0) {
+				  	  it = tmp;
+                  			shortest = stpStation;
+				    }	
+			   	} else if (tmp != null) {
+				  it = tmp;
+				  shortest = stpStation;
+            			}
+			}
+        	}
+		lstStation.add(current.getStation());
+	    }
+	    prev = current;
+	    current = current.getNext();
 	  }
 	  if( it != null) {
 	  	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(),shortest.getStation());
