@@ -54,11 +54,14 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 		return Collections.unmodifiableList(_listSegmentos);
 	}
 	
-	/*public String toString(){
-		TODO
-	}*/
-
-	
+	public String toString(int id){
+		String s = String.format(Locale.US,"Itinerário %d @ %.2f\n",
+				id, getTotalCost());
+		for (Segment sg : getSegments()) {
+			s+= sg.toString + "\n";
+		}
+		return s;
+	}
 	public int compareTo(Itinerary p){  
 		return this.getTotalDuration().compareTo(p.getTotalDuration());
 	}
