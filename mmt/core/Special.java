@@ -9,7 +9,7 @@ public class Special extends Category{
 */
 
 	private static double _discount = 0.5;
-	private static String _description = "SPECIAL";
+	private static String _description = Category.Special();
 
 
 	double getDiscount(){

@@ -9,7 +9,7 @@ public class Normal extends Category{
 */
 
 	private static double _discount = 0.0;
-	private static String _description = "NORMAL";
+	private static String _description = Category.Normal();
 
 
 	double getDiscount(){

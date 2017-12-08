@@ -99,19 +99,18 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	}*/
 
 	void sortCategory(){
-		if (_totalCost <= 250){
-			Normal normal = new Normal();
-			setCategory(normal);
+		double discountedCost = getTotalCost();
+
+		if (discountedCost <= 250){
+		  if (getCategory().equals(Category.Normal())) { setCategory(new Normal()); }
 		}
-		else if (_totalCost <= 2500){
-			Frequent frequent = new Frequent();
-			setCategory(frequent);
+		else if (discountedCost <= 2500){
+		  if (getCategory().equals(Category.Frequent())) { setCategory(new Frequent()); }
 		}
-		else{
-			Special special = new Special();
-			setCategory(special);
+		else {
+		  if (getCategory().equals(Category.Special())) { setCategory(new Special()); }
 		}
-	}
+  	}
 
 
 /**
@@ -151,9 +150,10 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * @return double com o valor pago
    */
 	double getTotalCost() {
+		double discountedCost = 0;
 		for (Itinerary it : _lastTenItinerary)
-			_totalCost += it.getTotalCost();
-		return _totalCost; 
+			discountedCost += it.getTotalCost();
+		return discountedCost; 
 	}
 /**
 	* Impressao formatada de um passageiro
@@ -175,9 +175,9 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	void buyItinerary(Itinerary it){
 		_listItinerary.add(it);
 
-		_lastTenItinerary[_contadorIter%10] =  it;
+		_lastTenItinerary[(_contadorIter++)%10] =  it;
 
-		_contadorIter++;
+		
 		//_totalCost += it.getTotalCost();
 
 		_totalTravelTime.plus(it.getTotalDuration());

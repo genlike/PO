@@ -20,7 +20,19 @@ public abstract class Category implements java.io.Serializable {
    * @return _discount do tipo double
    */
 	abstract double getDiscount();
+	
 
+	static String Normal() {
+		return "NORMAL";
+	}
+
+	static String Frequent() {
+		return "FREQUENT";
+	}
+
+	static String Special() {
+		return "SPECIAL";
+	}
 	@Override
 	public String toString(){
 		return "" + getCategoryDescription();
