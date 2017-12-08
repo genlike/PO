@@ -90,25 +90,17 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		_category = category;
 	}
 
-/**
-   * Devolve a lista de iternerarios do passageiro
-   * @return lista de Itenerary
-   */
-	/* Itenerary[] getIteneraryLista(){
-		// FIXME implement when Itenerary is developed
-	}*/
-
 	void sortCategory(){
 		double discountedCost = getTotalCost();
 
 		if (discountedCost <= 250){
-		  if (getCategory().equals(Category.Normal())) { setCategory(new Normal()); }
+		  if (getCategory().equals(Normal.DESCRIPTION)) { setCategory(new Normal()); }
 		}
 		else if (discountedCost <= 2500){
-		  if (getCategory().equals(Category.Frequent())) { setCategory(new Frequent()); }
+		  if (getCategory().equals(Frequent.DESCRIPTION)) { setCategory(new Frequent()); }
 		}
 		else {
-		  if (getCategory().equals(Category.Special())) { setCategory(new Special()); }
+		  if (getCategory().equals(Special.DESCRIPTION)) { setCategory(new Special()); }
 		}
   	}
 
@@ -177,13 +169,15 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 
 		_lastTenItinerary[(_contadorIter++)%10] =  it;
 
-		
-		//_totalCost += it.getTotalCost();
-
 		_totalTravelTime.plus(it.getTotalDuration());
-		//TODO atualizar categorias
+
 		sortCategory();
 	}
+
+/**
+   * Devolve a lista de iternerarios do passageiro
+   * @return lista de Itenerary
+   */
 	
 	List<Itinerary> getItineraries() { return Collections.unmodifiableList(_listItinerary); }
 

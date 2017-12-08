@@ -9,7 +9,7 @@ public class Normal extends Category{
 */
 
 	private static double _discount = 0.0;
-	private static String _description = Category.Normal();
+	final static String DESCRIPTION = "NORMAL";
 
 
 	double getDiscount(){
@@ -17,6 +17,6 @@ public class Normal extends Category{
 	}
 
 	String getCategoryDescription(){
-		return _description;
+		return DESCRIPTION;
 	}
 }

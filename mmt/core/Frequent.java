@@ -10,7 +10,7 @@ public class Frequent extends Category{
 
 
 	private static double _discount = 0.15;
-	private static String _description = Category.Frequent();
+	static final String DESCRIPTION = "FREQUENT";
 	
 
 	double getDiscount(){
@@ -18,7 +18,7 @@ public class Frequent extends Category{
 	}
 
 	String getCategoryDescription(){
-		return _description;
+		return DESCRIPTION;
 	}
 	
 }
