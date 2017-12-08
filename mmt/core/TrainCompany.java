@@ -240,9 +240,13 @@ public class TrainCompany implements java.io.Serializable {
     return stringOfServices;
   }
 
+
+
   Passenger getPassenger(int id){
     return _listPassageiros.get(id);
   }
+
+
 
   List<Itinerary> getSimpleItinerary(LocalDate ld, LocalTime lt, String stationOrigin, String stationDestination) throws NoSuchStationNameException {
 	  Station orig = searchStation(stationOrigin);
@@ -250,15 +254,18 @@ public class TrainCompany implements java.io.Serializable {
 	  List<Itinerary> listItinerary = new ArrayList<>();
 	  
 	  for(Stop st : orig.getStops()) {
-		if (st.getSchedule().isAfter(lt)) {
-			Segment sg = st.getService().createSegment( orig,dest);
-			if (sg != null) {
-				Itinerary it = new Itinerary(ld);	
-				it.addSegment(sg);
-				listItinerary.add(it);
-			}
-		}
-	  }
+
+		  if (st.getSchedule().isAfter(lt)) {
+
+		  	Segment sg = st.getService().createSegment(orig, dest);
+
+		  	if (sg != null) {
+		  		Itinerary it = new Itinerary(ld);	
+		  		it.addSegment(sg);
+		  		listItinerary.add(it);
+		  	}
+		  }
+    }
 	  return listItinerary;
   }
 
@@ -283,18 +290,18 @@ public class TrainCompany implements java.io.Serializable {
   
   
   Itinerary getRecursiveItinerary(Stop stpOrigin, Station stDestination,List<Service> lstService,List<Station> lstStation){
-	Itinerary it = null;
-	Segment sg;
-
-	if (!lstService.contains(stpOrigin.getService())){
-		lstService.add(stpOrigin.getService());			  		
-		sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
-		
-		  if (sg != null) {
-
-			  it = new Itinerary();
-			  it.addSegment(sg);
-			  return it;
+    Itinerary it = null;
+    Segment sg;
+  
+    if (!lstService.contains(stpOrigin.getService())){
+      lstService.add(stpOrigin.getService());			  		
+  	 	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
+  	 	
+  	 	  if (sg != null) {
+  
+  	 		  it = new Itinerary();
+  	 		  it.addSegment(sg);
+	 		    return it;
 		  }
 	  }
 
@@ -304,26 +311,32 @@ public class TrainCompany implements java.io.Serializable {
 
 	  while (current != null) {
 	    Itinerary tmp = null;
+
 	    if (!lstStation.contains(current.getStation())) {
-		for(Stop stpStation : current.getStation().getStops()) {  
-			if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
-				tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
-				if (it != null) {
-				   if (tmp != null && tmp.compareTo(it)<0) {
-				  	  it = tmp;
-                  			shortest = stpStation;
-				    }	
-			   	} else if (tmp != null) {
-				  it = tmp;
-				  shortest = stpStation;
-            			}
-			}
-        	}
-		lstStation.add(current.getStation());
+
+		    for(Stop stpStation : current.getStation().getStops()) {
+
+		    	if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
+
+		    		tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
+
+		    		if (it != null) {
+		    		   if (tmp != null && tmp.compareTo(it)<0) {
+		    		  	  it = tmp;
+                  shortest = stpStation;
+		    		    }	
+            } else if (tmp != null) {
+              it = tmp;
+		    		  shortest = stpStation;
+            }
+		    	}
+        }
+        lstStation.add(current.getStation());
 	    }
 	    prev = current;
 	    current = current.getNext();
 	  }
+
 	  if( it != null) {
 	  	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(),shortest.getStation());
 	  	it.addSegment(sg);
@@ -356,4 +369,21 @@ public class TrainCompany implements java.io.Serializable {
 			}
 		}
 	}
+
+
+  String exportListOfAllItineraries(){
+    String s1;
+    List<Itinerary> temp;
+    for (Passenger p : _listPassageiros){
+      s1 += p.printItineraries();
+    }
+    return s1;
+  }
+
+  String showItinerariesById(int id){
+    Passenger p = _listPassageiros.get(id);
+    return p.printItineraries();
+
+  }
+
 }

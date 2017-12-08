@@ -57,6 +57,8 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 	/*public String toString(){
 		TODO
 	}*/
+
+	
 	public int compareTo(Itinerary p){  
 		return this.getTotalDuration().compareTo(p.getTotalDuration());
 	}

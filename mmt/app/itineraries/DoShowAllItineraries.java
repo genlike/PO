@@ -21,6 +21,8 @@ public class DoShowAllItineraries extends Command<TicketOffice> {
   /** @see pt.tecnico.po.ui.Command#execute() */
   @Override
   public final void execute() {
+    _display.addLine(_receiver.exportListOfAllItineraries());
+    _display.display();
     //FIXME implement command
   }
 

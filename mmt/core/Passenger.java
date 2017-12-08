@@ -181,4 +181,11 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	
 	List<Itinerary> getItineraries() { return Collections.unmodifiableList(_listItinerary); }
 
+	String printItineraries(){
+		String s = "== Passageiro " + getId() + ": " + getName() + " ==\n";
+      	for (Itinerary it : getItineraries())
+      		s += it.toString();
+      	return s;
+	}
+
 }
