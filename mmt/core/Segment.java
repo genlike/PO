@@ -27,5 +27,6 @@ public class Segment{
 		
 		return _origin.getService().toStringSubset(_origin,_destiny);
 	}
+
 	//TODO toString que chama o toString do Service
 }

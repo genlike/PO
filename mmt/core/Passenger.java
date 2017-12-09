@@ -29,7 +29,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	private double 			_totalCost;
 	private Duration		_totalTravelTime;
 	private Category 		_category;
-	private int 			_totalItenerary;
+	//private int 			_totalItenerary;
 	private List<Itinerary> _listItinerary;
 	private Itinerary[]		_lastTenItinerary;
 	private int 			_contadorIter;
@@ -126,7 +126,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * @return inteiro com o _totalItenerary
    */
 	int getTotalItenerary(){
-		return _totalItenerary;
+		return _contadorIter;
 	}
 
 /**
@@ -134,8 +134,9 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * @return tempo total viajado
    */
 	Duration getTotalTime(){
-		return _totalTravelTime.plus(Duration.ZERO);
+		return _totalTravelTime;
 	}
+
 
 /**
    * Devolve total pago pelo passageiro
@@ -154,8 +155,9 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	public String toString(){
 	  return String.format(Locale.US,"%d|%s|%s|%d|%.2f|%02d:%02d", 
 	  getId(), getName(), getCategory(), getTotalItenerary(), getTotalCost(),
-	  getTotalTime().toHours(),getTotalTime().toMinutes());
+	  getTotalTime().toHours(),(getTotalTime().toMinutes())%60);
 	}
+
 /**
 	* Funcao de comparacao de clientes pelos seus ids, ordenecao crescente
 	* @return retorna um valor inteiro positivo, zero ou negativo, para indicar se e maior ou menor que o passageiro dado.
@@ -169,7 +171,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 
 		_lastTenItinerary[(_contadorIter++)%10] =  it;
 
-		_totalTravelTime.plus(it.getTotalDuration());
+		_totalTravelTime = _totalTravelTime.plus(it.getTotalDuration());
 
 		sortCategory();
 	}
@@ -182,11 +184,11 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	List<Itinerary> getItineraries() { return Collections.unmodifiableList(_listItinerary); }
 
 	String printItineraries(){
-		String s = "\n== Passageiro " + getId() + ": " + getName() + " ==\n";
+		String s = "== Passageiro " + getId() + ": " + getName() + " ==\n";
 		int i = 1;
       		for (Itinerary it : getItineraries())
       			s += it.toString(i++);
-      		return s;
+      		return (s.length() != 0 ? s : null);
 	}
 
 }

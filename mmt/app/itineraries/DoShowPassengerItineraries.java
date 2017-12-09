@@ -31,10 +31,13 @@ public class DoShowPassengerItineraries extends Command<TicketOffice> {
     _form.parse();
 
     try{
-      _display.addLine(_receiver.showItinerariesById(_id.value()));
+      if(_receiver.showItinerariesById(_id.value()) != null)
+        _display.addLine(_receiver.showItinerariesById(_id.value()));
+      else
+        _display.addLine(Message.noItineraries(_id.value()));
     } catch (NoSuchPassengerIdException pie) {
         throw new NoSuchPassengerException( _id.value());
-  }
+    }
     _display.display();
     //FIXME implement command
   }

@@ -55,10 +55,11 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 	}
 	
 	public String toString(int id){
-		String s = String.format(Locale.US,"Itinerário %d @ %.2f\n",
-				id, getTotalCost());
+		/*String s = String.format(Locale.US,"\nItinerário %d para  @ %.2f\n",
+				id, getTotalCost());*/
+		String s = "\nItinerário " + id + " para " + _departureDate + " @ " + String.format(Locale.US, "%.2f\n", getTotalCost());
 		for (Segment sg : getSegments()) {
-			s+= sg.toString() + "\n";
+			s+= sg.toString() +"\n";
 		}
 		
 		return s.substring(0,s.length() -1);

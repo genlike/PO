@@ -362,7 +362,7 @@ public class TrainCompany implements java.io.Serializable {
   String showItinerariesById(int id) throws NoSuchPassengerIdException {
     Passenger p = _listPassageiros.get(id);
     if (p == null ) { throw new NoSuchPassengerIdException(id);}
-    return p.printItineraries();
+    return (p.printItineraries()!=null ? p.printItineraries() : null);
 
   }
 

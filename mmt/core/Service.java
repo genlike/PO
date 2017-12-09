@@ -115,9 +115,8 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 	*/
 	public String toStringSubset(Stop stStart, Stop stFinish) {
 		String s = String.format(Locale.US,"Serviço #%d @ %.2f\n",
-				getId(), getTotalCost());
+				getId(), getCost(stStart, stFinish));
 		
-	
 		if (!_listStops.contains(stStart)){
 			return s;
 		}
@@ -125,7 +124,7 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 		int l = _listStops.size();
 
 		while (i<l && ( i==0 || !stFinish.equals(_listStops.get(i-1)))) {
-			s += _listStops.get(i++) + "\n";
+			s += _listStops.get(i++) +"\n";
 		}
 		return s;
 	}
