@@ -11,7 +11,10 @@ import mmt.core.exceptions.ImportFileException;
 import mmt.core.exceptions.NoSuchPassengerIdException;
 import mmt.core.exceptions.NoSuchServiceIdException;
 import mmt.core.exceptions.NoSuchStationNameException;
-
+import mmt.core.exceptions.BadDateSpecificationException;
+import mmt.core.exceptions.BadTimeSpecificationException;
+import mmt.core.exceptions.NoSuchItineraryChoiceException;
+import mmt.core.exceptions.NonUniquePassengerNameException;
 
 /**
  * Façade for handling persistence and other functions.
@@ -167,8 +170,13 @@ public class TicketOffice {
   public String showItinerariesById(int id) throws NoSuchPassengerIdException {
 	return _trainCompany.showItinerariesById(id);
   }
+  public String searchItinerary(String departureStation, String arrivalStation, String departureDate, String departureHour) 
+	throws NoSuchPassengerIdException, NoSuchStationNameException, BadDateSpecificationException, BadTimeSpecificationException {
+	return _trainCompany.searchItinerary(departureStation, arrivalStation, departureDate, departureHour); 
+  }
 
-  public void test () throws NoSuchStationNameException {
-	_trainCompany.ItiTests();
-	}
+  public void commitItinerary (int p, int itChoice) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
+	_trainCompany.commitItinerary(p, itChoice);
+  }
+
  }

@@ -117,16 +117,14 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 		String s = String.format(Locale.US,"Serviço #%d @ %.2f\n",
 				getId(), getTotalCost());
 		
-		System.out.println("Start" + stStart + _listStops.indexOf(stStart));
-		System.out.println("Stop" + stFinish);
-		
+	
 		if (!_listStops.contains(stStart)){
 			return s;
 		}
 		int i = _listStops.indexOf(stStart);
 		int l = _listStops.size();
 
-		while (i<l && !stFinish.equals(_listStops.get(i-1))) {
+		while (i<l && ( i==0 || !stFinish.equals(_listStops.get(i-1)))) {
 			s += _listStops.get(i++) + "\n";
 		}
 		return s;

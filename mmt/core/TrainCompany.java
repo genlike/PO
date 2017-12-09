@@ -13,6 +13,7 @@ import mmt.core.exceptions.NonUniquePassengerNameException;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -60,6 +61,10 @@ public class TrainCompany implements java.io.Serializable {
     */
   private Map<Integer,Passenger> _listPassageiros;
 
+  /**
+    * Lista intermedia para guardar os possiveis itinerarios;
+    */
+  private List<Itinerary> _tempListItinerary;
 
   /**
     * Contrutor que comeca por inicializar as listas de servicos, 
@@ -128,9 +133,9 @@ public class TrainCompany implements java.io.Serializable {
   }
 
 
-  Station searchStation(String name) {
+  Station searchStation(String name) throws NoSuchStationNameException {
     Station s = _listEstacoes.get(name);
-    //if ((s==null)){ throw new NoSuchStationNameException(name); }
+    if ((s==null)){ throw new NoSuchStationNameException(name); }
     return s;
   }
 
@@ -271,10 +276,8 @@ public class TrainCompany implements java.io.Serializable {
 
 
   
-  List<Itinerary> getItinerary(LocalDate ld, LocalTime lt, String stationOrigin, String stationDestination) {
-	  Station orig = searchStation(stationOrigin);
-	  Station dest = searchStation(stationDestination);
-	  
+  List<Itinerary> getItinerary(LocalDate ld, LocalTime lt,Station orig, Station dest) {
+
 	  List<Itinerary> listItinerary = new ArrayList<>();
 	  List<Service> listService = new ArrayList<>();
 	  List<Station> listStation = new ArrayList<>();
@@ -282,7 +285,11 @@ public class TrainCompany implements java.io.Serializable {
 	  for(Stop st : orig.getStops()) {
 		  if (st.getSchedule().isAfter(lt)) {
 		  	Itinerary it = getRecursiveItinerary(st, dest,listService, listStation);		
-		  	if (it != null ) {listItinerary.add(it); }
+		  	if (it != null ) {
+				it.setDepartureDate(ld);
+				listItinerary.add(it); 
+			}
+			
 		  }
 	  }
 	  return listItinerary;
@@ -344,33 +351,6 @@ public class TrainCompany implements java.io.Serializable {
 	  return it;
   }
 
-
-	void ItiTests() throws NoSuchStationNameException {
-		for (Passenger p : _listPassageiros.values()){
-			for (Itinerary it : p.getItineraries()){
-				System.out.println("Itinerario " + it);
-				for(Segment sg : it.getSegments()){
-					System.out.println(" Segment " + sg);
-				}
-			}
-		}
-		System.out.println("SIMPLE SEARCH");
-		for (Itinerary it : getSimpleItinerary(LocalDate.now(), LocalTime.now(), "Évora", "Lisboa - Oriente")){
-			System.out.println("Itinerario " + it);
-			for(Segment sg : it.getSegments()){
-				System.out.println(" Segment " + sg);
-			}
-		}
-		System.out.println("COMPLEX SEARCH");
-		for (Itinerary it : getItinerary(LocalDate.now(),  LocalTime.parse("06:00"), "Valenca", "Lisboa - Oriente")){
-			System.out.println("Itinerario " + it);
-			for(Segment sg : it.getSegments()){
-				System.out.println(" Segment " + sg);
-			}
-		}
-	}
-
-
   String exportListOfAllItineraries(){
     String s1 = new String();
     for (Passenger p : _listPassageiros.values()){
@@ -385,5 +365,44 @@ public class TrainCompany implements java.io.Serializable {
     return p.printItineraries();
 
   }
+
+  public String searchItinerary(String departureStation, String arrivalStation, String departureDate, String departureHour) 
+	throws NoSuchPassengerIdException, NoSuchStationNameException, BadDateSpecificationException, BadTimeSpecificationException {
+	Station departure = searchStation(departureStation); 	
+    	if (departure == null ) { throw new NoSuchStationNameException(departureStation);}
+	Station arrival = searchStation(arrivalStation);     	
+    	if (arrival == null ) { throw new NoSuchStationNameException(arrivalStation);}
+	LocalDate dt;
+	try {	
+	  dt = LocalDate.parse(departureDate);
+	} catch (DateTimeParseException dtpe) {
+	  throw new BadDateSpecificationException(departureDate); 
+	}
+	LocalTime tm;
+	try {	
+	  tm = LocalTime.parse(departureHour);
+	} catch (DateTimeParseException dtpe) {
+	  throw new BadDateSpecificationException(departureHour); 
+	}
+	
+	_tempListItinerary = getItinerary(dt, tm, departure, arrival);
+
+	String s = new String();
+	int i = 1;
+	for (Itinerary it : _tempListItinerary) {
+		s+= it.toString(i++);
+	}
+	
+	return s;
+  }
+  
+  public void commitItinerary(int passengerId, int itChoice) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
+	if (itChoice > _tempListItinerary.size()-1 ) { throw new NoSuchItineraryChoiceException(passengerId, itChoice);} 
+	Passenger p = _listPassageiros.get(passengerId);
+	if (p == null ) { throw new NoSuchPassengerIdException(passengerId);}
+	
+	p.buyItinerary(_tempListItinerary.get(itChoice));
+  }
+
 
 }

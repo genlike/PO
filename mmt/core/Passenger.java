@@ -183,7 +183,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 
 	String printItineraries(){
 		String s = "== Passageiro " + getId() + ": " + getName() + " ==\n";
-		int i = 0;
+		int i = 1;
       		for (Itinerary it : getItineraries())
       			s += it.toString(i++);
       		return s;

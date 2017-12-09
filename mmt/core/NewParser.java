@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.LocalDate;
 
 import mmt.core.exceptions.ImportFileException;
+import mmt.core.exceptions.NoSuchStationNameException;
 
 public class NewParser {
 
@@ -91,8 +92,15 @@ public class NewParser {
       String arrivalTrainStop = segmentDescription[2];
 
       Service s = _trainCompany.searchService(serviceId);
-      Station departure = _trainCompany.searchStation(departureTrainStop);
-      Station arrival = _trainCompany.searchStation(arrivalTrainStop);
+      Station departure;
+      Station arrival;
+
+      try {
+	departure = _trainCompany.searchStation(departureTrainStop);
+	arrival = _trainCompany.searchStation(arrivalTrainStop);
+      } catch (NoSuchStationNameException ex) {
+	throw new ImportFileException("No such Station name:\n" + arrivalTrainStop + " | " + arrivalTrainStop );
+      }
       sg = s.createSegment(departure, arrival);
       it.addSegment(sg);
     }
