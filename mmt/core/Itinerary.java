@@ -60,7 +60,8 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 		for (Segment sg : getSegments()) {
 			s+= sg.toString() + "\n";
 		}
-		return s;
+		
+		return s.substring(0,s.length() -1);
 	}
 	public int compareTo(Itinerary p) {  
 		return this.getTotalDuration().compareTo(p.getTotalDuration());
