@@ -95,6 +95,7 @@ public class NewParser {
       Station departure;
       Station arrival;
 
+
       try {
 	departure = _trainCompany.searchStation(departureTrainStop);
 	arrival = _trainCompany.searchStation(arrivalTrainStop);

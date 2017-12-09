@@ -29,7 +29,6 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	private double 			_totalCost;
 	private Duration		_totalTravelTime;
 	private Category 		_category;
-	//private int 			_totalItenerary;
 	private List<Itinerary> _listItinerary;
 	private Itinerary[]		_lastTenItinerary;
 	private int 			_contadorIter;
@@ -169,9 +168,10 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	void buyItinerary(Itinerary it){
 		_listItinerary.add(it);
 
+		_totalTravelTime = _totalTravelTime.plus(it.getTotalDuration());
+
 		_lastTenItinerary[(_contadorIter++)%10] =  it;
 
-		_totalTravelTime = _totalTravelTime.plus(it.getTotalDuration());
 
 		sortCategory();
 	}

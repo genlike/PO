@@ -1,6 +1,7 @@
 package mmt.core;
 
 import java.time.Duration;
+import java.time.LocalTime;
 
 
 public class Segment{
@@ -12,6 +13,14 @@ public class Segment{
 	Segment(Stop origin, Stop destiny){
 		_origin  = origin;
 		_destiny = destiny;
+	}
+
+	LocalTime getDepartureTime(){
+		return _origin.getSchedule();
+	}
+
+	LocalTime getArrivalTime(){
+		return _destiny.getSchedule();
 	}
 
 	double getCost(){
