@@ -240,7 +240,8 @@ public class TrainCompany implements java.io.Serializable {
 
    /**
      * Metodo que trata de alterar o nome de um passageiro ja existente
-     * @param id do tipo int, newName do tipo String
+     * @param id do tipo int
+     * @param newName do tipo String
      * @throws NoSuchPassengerIdException quando o id do passageiro e' invalido
      */
   void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
