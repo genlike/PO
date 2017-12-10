@@ -5,6 +5,9 @@ import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	/**
@@ -29,7 +32,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	private double 			_totalCost;
 	private Duration		_totalTravelTime;
 	private Category 		_category;
-	private List<Itinerary> _listItinerary;
+	private Set<Itinerary> 		_setItinerary;
 	private Itinerary[]		_lastTenItinerary;
 	private int 			_contadorIter;
 
@@ -44,7 +47,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		_id = id;
 		_category = new Normal();
 		_totalTravelTime = Duration.ZERO;
-		_listItinerary = new ArrayList<>();
+		_setItinerary = new TreeSet<>();
 		_lastTenItinerary = new Itinerary[10];
 		_contadorIter = 0;
 	}
@@ -166,7 +169,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	}
 
 	void buyItinerary(Itinerary it){
-		_listItinerary.add(it);
+		_setItinerary.add(it);
 
 		_totalTravelTime = _totalTravelTime.plus(it.getTotalDuration());
 
@@ -181,14 +184,19 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
    * @return lista de Itenerary
    */
 	
-	List<Itinerary> getItineraries() { return Collections.unmodifiableList(_listItinerary); }
+	Collection<Itinerary> getItineraries() { return Collections.unmodifiableSet(_setItinerary); }
 
 	String printItineraries(){
 		String s = "== Passageiro " + getId() + ": " + getName() + " ==\n";
 		int i = 1;
-      		for (Itinerary it : getItineraries())
-      			s += it.toString(i++);
-      		return (s.length() != 0 ? s : null);
+		Collection<Itinerary> colItinerary = getItineraries();
+
+		if (colItinerary.size() == 0) { return null; }
+
+      		for (Itinerary it : colItinerary)
+      			s += "\n" +it.toString(i++) + "\n";
+
+      		return s.substring(0,s.length() -1);
 	}
 
 }

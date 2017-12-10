@@ -53,6 +53,11 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 		_cost += segment.getCost();
 	}
 	
+	void addSegmentFirst(Segment segment){
+		_listSegmentos.add(0,segment);
+		_cost += segment.getCost();
+	}
+
 	List<Segment> getSegments(){
 		return Collections.unmodifiableList(_listSegmentos);
 	}
@@ -60,15 +65,30 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 	public String toString(int id){
 		/*String s = String.format(Locale.US,"\nItinerário %d para  @ %.2f\n",
 				id, getTotalCost());*/
-		String s = "\nItinerário " + id + " para " + _departureDate + " @ " + String.format(Locale.US, "%.2f\n", getTotalCost());
+		String s = "Itinerário " + id + " para " + _departureDate + " @ " + String.format(Locale.US, "%.2f\n", getTotalCost());
 		for (Segment sg : getSegments()) {
 			s+= sg.toString() +"\n";
 		}
 		
-		return s.substring(0,s.length() -1);
+		return s;
 	}
-	public int compareTo(Itinerary p) {  
-		return this.getTotalDuration().compareTo(p.getTotalDuration());
+
+
+	public int compareTo(Itinerary p) {
+		int departureDate = this.getDepartureDate().compareTo(p.getDepartureDate());
+		if (departureDate == 0){
+			Segment departure1 = this._listSegmentos.get(0);
+			Segment departure2 = p._listSegmentos.get(0);
+			int timeArrival = departure1.getDepartureTime().compareTo(departure2.getDepartureTime());
+			if (timeArrival == 0) { 
+				Segment arrival1 = this._listSegmentos.get(this._listSegmentos.size()-1);
+				Segment arrival2 = p._listSegmentos.get(p._listSegmentos.size()-1);
+				return arrival1.getDepartureTime().compareTo(arrival2.getDepartureTime());
+			}
+			return timeArrival;
+		}
+		return departureDate;
+		
 	}
 
 

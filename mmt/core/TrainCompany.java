@@ -21,9 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Map;
 import java.util.HashMap;
-
 
 /**
   * A train company has schedules (services) for its trains and passengers that
@@ -91,13 +89,7 @@ public class TrainCompany implements java.io.Serializable {
      * Posteriormente limpara a lista de itenerarios a qual os clientes estao relacionados
      */
   void reset() {
-
-    for (int i = 0; i < _listPassageiros.size(); i++){
-      Passenger p = _listPassageiros.get(i);
-      for (Itinerary it : p.getItineraries())
-        it.getSegments().clear();
-      p.getItineraries().clear();
-    }
+    _nextPassengerID = 0;
     _listPassageiros.clear();
   }
   /**
@@ -355,7 +347,7 @@ public class TrainCompany implements java.io.Serializable {
 
 	  if( it != null) {
 	  	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(),shortest.getStation());
-	  	it.addSegment(sg);
+	  	it.addSegmentFirst(sg);
 	  }
 	  return it;
   }
@@ -379,7 +371,7 @@ public class TrainCompany implements java.io.Serializable {
       throw new NoSuchPassengerIdException(id);
     }
 
-    return (p.printItineraries()!= null ? p.printItineraries() : null);
+    return p.printItineraries();
   }
 
 
@@ -408,8 +400,9 @@ public class TrainCompany implements java.io.Serializable {
 	  }
 	
 	  _tempListItinerary = getItinerary(dt, tm, departure, arrival);
+	  Collections.sort(_tempListItinerary);
   
-  	String s = new String();
+  	String s = "\n";
   	int i = 1;
   	for (Itinerary it : _tempListItinerary) {
   		s+= it.toString(i++);

@@ -126,7 +126,7 @@ public class Service  implements java.io.Serializable, Comparable<Service> {
 		while (i<l && ( i==0 || !stFinish.equals(_listStops.get(i-1)))) {
 			s += _listStops.get(i++) +"\n";
 		}
-		return s;
+		return s.substring(0,s.length() -1);
 	}
 /**
 	* Funcao que adiciona stops a lista

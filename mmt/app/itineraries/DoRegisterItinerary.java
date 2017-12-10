@@ -56,12 +56,16 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 	_form.parse();
 	String result =_receiver.searchItinerary(_departureStation.value(), _arrivalStation.value(),
 		_departureDate.value(),_departureHour.value());
-	if (!result.equals("")) {
+	if (!result.equals("\n")) {
 		_display.addLine(result);
 		_display.display();
 		_itineraryChoiceForm.parse();
-		if (_itineraryChoice.value() > 0)
-			_receiver.commitItinerary(_passengerId.value(), _itineraryChoice.value() -1 );
+		if (_itineraryChoice.value() >= 0) {
+			_receiver.commitItinerary(_passengerId.value(), _itineraryChoice.value());
+		}
+		else {
+			throw new NoSuchItineraryException(_passengerId.value(), _itineraryChoice.value());
+		}
 	}
       //FIXME implement command
       // must call (at least) _receiver.searchItineraries(...) and _receiver.commitItinerary(...)

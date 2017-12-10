@@ -31,8 +31,9 @@ public class DoShowPassengerItineraries extends Command<TicketOffice> {
     _form.parse();
 
     try{
-      if(_receiver.showItinerariesById(_id.value()) != null)
-        _display.addLine(_receiver.showItinerariesById(_id.value()));
+	String s = _receiver.showItinerariesById(_id.value());
+      if(s != null)
+        _display.addLine(s);
       else
         _display.addLine(Message.noItineraries(_id.value()));
     } catch (NoSuchPassengerIdException pie) {
