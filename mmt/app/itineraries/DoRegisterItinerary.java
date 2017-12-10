@@ -73,7 +73,7 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
     } catch (NoSuchStationNameException e) {
       throw new NoSuchStationException(e.getName());
     } catch (NoSuchItineraryChoiceException e) {
-      throw new NoSuchItineraryException(e.getPassengerId(), e.getItineraryId());
+      throw new NoSuchItineraryException(e.getPassengerId(), e.getItineraryId()+1);
     } catch (BadDateSpecificationException e) {
       throw new BadDateException(e.getDate());
     } catch (BadTimeSpecificationException e) {
