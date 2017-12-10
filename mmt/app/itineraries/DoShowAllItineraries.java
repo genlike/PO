@@ -4,7 +4,6 @@ import mmt.core.TicketOffice;
 import pt.tecnico.po.ui.Command;
 import pt.tecnico.po.ui.Display;
 
-//FIXME import other classes if necessary
 
 /**
  * §3.4.1. Show all itineraries (for all passengers).
@@ -23,7 +22,7 @@ public class DoShowAllItineraries extends Command<TicketOffice> {
   public final void execute() {
     _display.addLine(_receiver.exportListOfAllItineraries());
     _display.display();
-    //FIXME implement command
+
   }
 
 }

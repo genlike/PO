@@ -14,7 +14,7 @@ import pt.tecnico.po.ui.Display;
 public class DoShowPassengerItineraries extends Command<TicketOffice> {
 
   private Input<Integer> _id;
-  //FIXME define input fields
+
 
   /**
    * @param receiver
@@ -22,7 +22,7 @@ public class DoShowPassengerItineraries extends Command<TicketOffice> {
   public DoShowPassengerItineraries(TicketOffice receiver) {
     super(Label.SHOW_PASSENGER_ITINERARIES, receiver);
      _id =_form.addIntegerInput(Message.requestPassengerId());
-    //FIXME initialize input fields
+
   }
 
   /** @see pt.tecnico.po.ui.Command#execute() */
@@ -31,16 +31,16 @@ public class DoShowPassengerItineraries extends Command<TicketOffice> {
     _form.parse();
 
     try{
-	String s = _receiver.showItinerariesById(_id.value());
+      String s = _receiver.showItinerariesById(_id.value());
+
       if(s != null)
         _display.addLine(s);
       else
         _display.addLine(Message.noItineraries(_id.value()));
+
     } catch (NoSuchPassengerIdException pie) {
         throw new NoSuchPassengerException( _id.value());
     }
     _display.display();
-    //FIXME implement command
   }
-
 }

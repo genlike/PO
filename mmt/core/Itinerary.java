@@ -40,31 +40,31 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 
 		Duration duration = Duration.between(s1.getDepartureTime(),s2.getArrivalTime());
 
-		/*for (Segment sg : _listSegmentos)
-			duration = duration.plus(sg.getDuration());*/
-
 		return duration;
 	}
 	
+
 	void setDepartureDate(LocalDate ld) { _departureDate = ld; }
 	
+
 	void addSegment(Segment segment){
 		_listSegmentos.add(segment);
 		_cost += segment.getCost();
 	}
 	
+
 	void addSegmentFirst(Segment segment){
 		_listSegmentos.add(0,segment);
 		_cost += segment.getCost();
 	}
 
+
 	List<Segment> getSegments(){
 		return Collections.unmodifiableList(_listSegmentos);
 	}
 	
+
 	public String toString(int id){
-		/*String s = String.format(Locale.US,"\nItinerário %d para  @ %.2f\n",
-				id, getTotalCost());*/
 		String s = "Itinerário " + id + " para " + _departureDate + " @ " + String.format(Locale.US, "%.2f\n", getTotalCost());
 		for (Segment sg : getSegments()) {
 			s+= sg.toString() +"\n";
@@ -87,8 +87,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 			}
 			return timeArrival;
 		}
-		return departureDate;
-		
+		return departureDate;	
 	}
 
 

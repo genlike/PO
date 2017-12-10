@@ -21,6 +21,7 @@ public class Stop implements java.io.Serializable {
 	* Servico a que esta associado esta paragem
 */
 	private Service _service;
+
 /**
 	* Construtor da paragem, assumido que está a ser chamado pelo serviço
 	* forma a ter o campo _service preenchido.
@@ -32,30 +33,36 @@ public class Stop implements java.io.Serializable {
 		_station.addStop(this);
 		setSchedule(schedule);
 	}
+
 /**
 	* Funcao para alterar a hora da paragem
 */
 	void setSchedule(LocalTime schedule){
 		_schedule = schedule;
 	}
+
 /**
 	* Funcao para alterar o servico.
 */
 	void setService(Service service){
 		_service = service;
 	}
+
 /**
 	* Funcao que retorna uma copia da hora de paragem
 */	
 	LocalTime getSchedule() { return _schedule.plusHours(0); }
+
 /**
 	* Funcao que retorna o servico associado
 */	
 	Service getService(){ return _service; }
+
 /**
 	* Funcao que retorna a estacao associada
 */	
 	Station getStation(){ return _station; }
+
 /**
 	* Impressao formatada da paragem
 	* @see mmt.core.Service#toString()
@@ -63,11 +70,12 @@ public class Stop implements java.io.Serializable {
 	public String toString() {
 	  return String.format("%02d:%02d %s", getSchedule().getHour(),getSchedule().getMinute(),getStation());
 	}
-	/**
+
+/**
 	 * Funcao que retorna se um dado Stop igual ao actual,
 	 * 2 Stops sao iguais, quando o seu Servico, Station e horario igual,
 	 * @param o objecto em questao a ser testado
-	 */
+*/
 	public boolean equals(Object o) {
 		if (o instanceof Stop) {
 			Stop st = (Stop)o;
@@ -78,9 +86,8 @@ public class Stop implements java.io.Serializable {
 			return false;
 		}
 	}
-	/**
-	 * 
-	 */
+
+
 	Stop getNext() {
 		List<Stop> stps = getService().getStops();
 		int i = stps.indexOf(this)+1;

@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Passenger implements java.io.Serializable, Comparable<Passenger>{
-	/**
+/**
 	* Classe responsavel pelo registo relativo ao passageiro
 	* @author Ines Albano	 87664
 	* @author Ricardo Silva  87700
@@ -18,7 +18,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	* Todos os metodos sao package-private logo nao e' explicitado o nivel de acesso
 	*/
 
-	/**
+/**
 	* _id atributo relativo ao id do passageiro
 	* _name atributo relativo ao nome do passageiro
 	* _status atributo relativo ao estado - ativo/invativo - do passageiro
@@ -92,6 +92,9 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		_category = category;
 	}
 
+/**
+   * Define a categoria do passageiro baseado no custo dos itenerarios adquiridos
+   */
 	void sortCategory(){
 		double discountedCost = getTotalCost();
 
@@ -150,9 +153,10 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 			if (it != null ) { discountedCost += it.getTotalCost(); }
 		return discountedCost; 
 	}
+
 /**
 	* Impressao formatada de um passageiro
-*/
+	*/
 	@Override
 	public String toString(){
 	  return String.format(Locale.US,"%d|%s|%s|%d|%.2f|%02d:%02d", 
@@ -161,13 +165,16 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	}
 
 /**
-	* Funcao de comparacao de clientes pelos seus ids, ordenecao crescente
+	* Metodo de comparacao de clientes pelos seus ids, ordenecao crescente
 	* @return retorna um valor inteiro positivo, zero ou negativo, para indicar se e maior ou menor que o passageiro dado.
-*/
+	*/
 	public int compareTo(Passenger p){
 	  return this.getId() - p.getId();
 	}
 
+/**
+	* Metodo de trata de registar a compra de um itenerario para um cliente
+	*/
 	void buyItinerary(Itinerary it){
 		_setItinerary.add(it);
 
@@ -198,6 +205,16 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
       			s += "\n" +it.toString(i++) + "\n";
 
       		return s.substring(0,s.length() -1);
+	}
+
+/**
+   * Trata de limpar os itenerarios de cada cliente
+   */
+	void clearListOfItineraries(){
+		_setItinerary.clear();
+
+		for(int i=0; i<10; i++)
+		_lastTenItinerary[i] = null;
 	}
 
 }

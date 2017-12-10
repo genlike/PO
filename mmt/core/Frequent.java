@@ -9,20 +9,20 @@ public class Frequent extends Category{
 */
 
 
-	private static double _discount = 0.15;
+	private static final double _discount = 0.15;
 	static final String DESCRIPTION = "FREQUENTE";
 	
 
-	/*double getDiscount(){
+	double getDiscount(){
 		return _discount;
-	}*/
+	}
 
 	String getCategoryDescription(){
 		return DESCRIPTION;
 	}
 
 	double getPartOfPayingPrice(){
-		return 1-_discount;
+		return 1-getDiscount();
 	}
 	
 }

@@ -19,6 +19,7 @@ public class Station implements java.io.Serializable {
 	* Lista de paragens para conseguir identificar os varios servicoes desta estacao
 */
 	private List<Stop> _listStops;
+
 /**
 	* Construtor
 	* @param description Descricao da estacao 
@@ -34,6 +35,7 @@ public class Station implements java.io.Serializable {
 	String getDescription(){
 		return "" + _description;
 	}
+
 /**
 	* Funcao para alterar a descricao da estacao.
 	* @param description nova descricao da estacao.
@@ -41,6 +43,7 @@ public class Station implements java.io.Serializable {
 	void setDescription(String description){
 		_description = description;
 	}
+
 /**
 	* Funcao que cria a ligacao da estacao com dado servico atravez da sua paragem
 	* @param a Adiciona dada paragem a lista de paragens 
@@ -48,12 +51,14 @@ public class Station implements java.io.Serializable {
 	void addStop(Stop a){
 		_listStops.add(a);
 	}
+
 /**
 	* Retorna uma copia da lista de paragens.
 */	
 	List<Stop> getStops(){
 		return Collections.unmodifiableList(_listStops);
 	}
+	
 /**
 	* Retorna a descricao da estacao.
 */

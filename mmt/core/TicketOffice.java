@@ -164,19 +164,42 @@ public class TicketOffice {
   }
 
 
+  /**
+     * Metodo que retorna a string com a lista de todos os itenerarios 
+     * @return string com a lista de itenerarios
+     */
   public String exportListOfAllItineraries() {
-	return _trainCompany.exportListOfAllItineraries();
-  }
-  public String showItinerariesById(int id) throws NoSuchPassengerIdException {
-	return _trainCompany.showItinerariesById(id);
-  }
-  public String searchItinerary(String departureStation, String arrivalStation, String departureDate, String departureHour) 
-	throws NoSuchPassengerIdException, NoSuchStationNameException, BadDateSpecificationException, BadTimeSpecificationException {
-	return _trainCompany.searchItinerary(departureStation, arrivalStation, departureDate, departureHour); 
+    return _trainCompany.exportListOfAllItineraries();
   }
 
+  /**
+     * Metodo que retorna a lista de itenerarios de um determinado passageiro 
+     * @param id do tipo int
+     * @return string com a lista de itenerarios do passageiro
+     */
+  public String showItinerariesById(int id) throws NoSuchPassengerIdException {
+    return _trainCompany.showItinerariesById(id);
+  }
+  
+
+  /**
+     * Metodo que retorna uma string com os itenerios com os requisitos 
+     * @param estcao de partida do tipo String, estacao de chegada do tipo String, 
+     *        data de partida do tipo String, hora de partida do tipo String
+     * @return string com os itenerarios
+     */
+  public String searchItinerary(String departureStation, String arrivalStation, String departureDate, String departureHour) 
+	 throws NoSuchPassengerIdException, NoSuchStationNameException, BadDateSpecificationException, BadTimeSpecificationException {
+    return _trainCompany.searchItinerary(departureStation, arrivalStation, departureDate, departureHour); 
+  }
+
+  
+  /**
+     * Metodo que trata de fazer a compra do itenerario  
+     * @param id do passageiro do tipo int, numero de escolhas do tipo int
+     */
   public void commitItinerary (int p, int itChoice) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
-	_trainCompany.commitItinerary(p, itChoice);
+    _trainCompany.commitItinerary(p, itChoice);
   }
 
  }

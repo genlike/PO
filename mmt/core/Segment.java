@@ -32,10 +32,10 @@ public class Segment{
 		Service s = _origin.getService();
 		return s.getDuration(_origin, _destiny); 
 	}
+	
 	public String toString() {
 		
 		return _origin.getService().toStringSubset(_origin,_destiny);
 	}
 
-	//TODO toString que chama o toString do Service
 }
