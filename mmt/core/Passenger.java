@@ -32,7 +32,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	private double 			_totalCost;
 	private Duration		_totalTravelTime;
 	private Category 		_category;
-	private Set<Itinerary> 		_setItinerary;
+	private Set<Itinerary> 	_setItinerary;
 	private Itinerary[]		_lastTenItinerary;
 	private int 			_contadorIter;
 
@@ -96,13 +96,13 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 		double discountedCost = getTotalCost();
 
 		if (discountedCost <= 250){
-		  if (getCategory().equals(Normal.DESCRIPTION)) { setCategory(new Normal()); }
+		  if (!(getCategory().equals(Normal.DESCRIPTION))) { setCategory(new Normal()); }
 		}
 		else if (discountedCost <= 2500){
-		  if (getCategory().equals(Frequent.DESCRIPTION)) { setCategory(new Frequent()); }
+		  if (!(getCategory().equals(Frequent.DESCRIPTION))) { setCategory(new Frequent()); }
 		}
 		else {
-		  if (getCategory().equals(Special.DESCRIPTION)) { setCategory(new Special()); }
+		  if (!(getCategory().equals(Special.DESCRIPTION))) { setCategory(new Special()); }
 		}
   	}
 
@@ -156,7 +156,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 	@Override
 	public String toString(){
 	  return String.format(Locale.US,"%d|%s|%s|%d|%.2f|%02d:%02d", 
-	  getId(), getName(), getCategory(), getTotalItenerary(), getTotalCost(),
+	  getId(), getName(), getCategory(), getTotalItenerary(), _totalCost,
 	  getTotalTime().toHours(),(getTotalTime().toMinutes())%60);
 	}
 
@@ -175,6 +175,7 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
 
 		_lastTenItinerary[(_contadorIter++)%10] =  it;
 
+		_totalCost += it.getTotalCost()* _category.getPartOfPayingPrice();
 
 		sortCategory();
 	}

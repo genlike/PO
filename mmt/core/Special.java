@@ -9,14 +9,18 @@ public class Special extends Category{
 */
 
 	private static double _discount = 0.5;
-	final static String DESCRIPTION = "SPECIAL";
+	final static String DESCRIPTION = "ESPECIAL";
 
 
-	double getDiscount(){
+	/*double getDiscount(){
 		return _discount;
-	}
+	}*/
 
 	String getCategoryDescription(){
 		return this.DESCRIPTION;
+	}
+
+	double getPartOfPayingPrice(){
+		return 1-_discount;
 	}
 }

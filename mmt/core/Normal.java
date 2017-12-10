@@ -12,11 +12,15 @@ public class Normal extends Category{
 	final static String DESCRIPTION = "NORMAL";
 
 
-	double getDiscount(){
+	/*double getDiscount(){
 		return _discount;
-	}
+	}*/
 
 	String getCategoryDescription(){
 		return DESCRIPTION;
+	}
+
+	double getPartOfPayingPrice(){
+		return 1-_discount;
 	}
 }

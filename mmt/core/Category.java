@@ -19,7 +19,8 @@ public abstract class Category implements java.io.Serializable {
    * Devolve qual o desconto relativo a cada categoria 
    * @return _discount do tipo double
    */
-	abstract double getDiscount();
+	//abstract double getDiscount();
+	abstract double getPartOfPayingPrice();
 	
 
 	static String Normal() {
