@@ -60,10 +60,9 @@ public class DoRegisterItinerary extends Command<TicketOffice> {
 		_display.addLine(result);
 		_display.display();
 		_itineraryChoiceForm.parse();
-		if (_itineraryChoice.value() >= 0) {
-			_receiver.commitItinerary(_passengerId.value(), _itineraryChoice.value());
-		}
-		else {
+		if (_itineraryChoice.value() > 0) {
+			_receiver.commitItinerary(_passengerId.value(), _itineraryChoice.value()-1);
+		} else if (_itineraryChoice.value() != 0) {
 			throw new NoSuchItineraryException(_passengerId.value(), _itineraryChoice.value());
 		}
 	}
