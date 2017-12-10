@@ -207,14 +207,4 @@ public class Passenger implements java.io.Serializable, Comparable<Passenger>{
       		return s.substring(0,s.length() -1);
 	}
 
-/**
-   * Trata de limpar os itenerarios de cada cliente
-   */
-	void clearListOfItineraries(){
-		_setItinerary.clear();
-
-		for(int i=0; i<10; i++)
-		_lastTenItinerary[i] = null;
-	}
-
 }

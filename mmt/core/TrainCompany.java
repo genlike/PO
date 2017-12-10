@@ -87,15 +87,9 @@ public class TrainCompany implements java.io.Serializable {
   
 
   /**
-     * Metodo que trata de limpar a lista de passageiros
-     * Posteriormente limpara a lista de itenerarios a qual os clientes estao relacionados
+     * Metodo que trata de limpar a lista de passageiros e itinerarios cada um
      */
   void reset() {
-    /*int i = _listPassageiros.size();
-    while(i-- >= 0 ){
-      Passenger p = _listPassageiros.get(i);
-      p.clearListOfItineraries();
-    }*/
     _listPassageiros.clear();
     _nextPassengerID = 0;
   }
@@ -284,7 +278,10 @@ public class TrainCompany implements java.io.Serializable {
 
   /**
      * Metodo que retorna a lista de itenerarios 
-     * @param data do tipo LocalDate, tempo do tipo LocalTime, origem do tipo Station e destino do tipo Estacao
+     * @param ld data do tipo LocalDate
+     * @param lt tempo do tipo LocalTime
+     * @param orig origem do tipo Station
+     * @param dest destino do tipo Estacao
      * @return lista de itenerarios
      */
   List<Itinerary> getItinerary(LocalDate ld, LocalTime lt,Station orig, Station dest) {
@@ -309,8 +306,11 @@ public class TrainCompany implements java.io.Serializable {
 
   /**
      * Metodo que faz a procura recursiva do itenerario que o passageiro podera adquirir
-     * @param origem do tipo Stop e destino do tipo Estacao, lista de servicos do tipo List, lista de estacoes do tipo List
-     * @return itenerario mais favoravel
+     * @param stpOrigin origem do tipo Stop
+     * @param stDestination destino do tipo Estacao
+     * @param lstService lista de servicos do tipo List
+     * @param lstStation lista de estacoes do tipo List
+     * @return it itenerario mais favoravel
      */
   Itinerary getRecursiveItinerary(Stop stpOrigin, Station stDestination,List<Service> lstService,List<Station> lstStation){
     Itinerary it = null;
@@ -319,7 +319,6 @@ public class TrainCompany implements java.io.Serializable {
     if (!lstService.contains(stpOrigin.getService())){
       lstService.add(stpOrigin.getService());			  		
   	 	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
-  	 	
   	 	  if (sg != null) {
   
   	 		  it = new Itinerary();
@@ -399,9 +398,15 @@ public class TrainCompany implements java.io.Serializable {
 
   /**
      * Metodo que retorna uma string com os itenerios com os requisitos 
-     * @param estcao de partida do tipo String, estacao de chegada do tipo String, 
-     *        data de partida do tipo String, hora de partida do tipo String
-     * @return string com os itenerarios
+     * @param departureStation estacao de partida do tipo String
+     * @param arrivalStation estacao de chegada do tipo String 
+     * @param departureDate data de partida do tipo String
+     * @param departureHour tempo de partida do tipo String
+     * @return s string com os itenerarios
+     * @throws NoSuchPassengerIdException Quando o passenger ID não é valido
+     * @throws NoSuchStationNameException Quando o nome da estacao nao e valido
+     * @throws BadDateSpecificationException Quando a data nao esta em formato valido
+     * @throws BadTimeSpecificationException Quando o tempo nao esta em formato valido
      */
   public String searchItinerary(String departureStation, String arrivalStation, String departureDate, String departureHour) 
 	 throws NoSuchPassengerIdException, NoSuchStationNameException, BadDateSpecificationException, BadTimeSpecificationException {
@@ -441,7 +446,10 @@ public class TrainCompany implements java.io.Serializable {
 
   /**
      * Metodo que trata de fazer a compra do itenerario  
-     * @param id do passageiro do tipo int, numero de escolhas do tipo int
+     * @param passengerId id do passageiro do tipo int, numero de escolhas do tipo int
+     * @param itChoice id da lista de itinerarios criada em {@link mmt.core.TrainCompany#searchItinerary} 
+     * @throws NoSuchPassengerIdException Quando o id do passageiro nao e valido
+     * @throws NoSuchItineraryChoiceException Quando o indice nao pertence a lista de itinerarios criada em {@link mmt.core.TrainCompany#searchItinerary}
      */
   public void commitItinerary(int passengerId, int itChoice) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
     if (itChoice > _tempListItinerary.size()-1 ){ 

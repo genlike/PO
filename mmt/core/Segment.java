@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 
-public class Segment{
+public class Segment  implements java.io.Serializable{
 
 	private Stop _origin;
 	private Stop _destiny;
