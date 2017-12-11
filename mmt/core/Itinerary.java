@@ -14,6 +14,7 @@ public class Itinerary implements java.io.Serializable, Comparable<Itinerary>{
 	private List<Segment> _listSegmentos;
 
 	Itinerary(){
+		_departureDate = LocalDate.now();
 		_listSegmentos = new ArrayList<>();
 	}
 	

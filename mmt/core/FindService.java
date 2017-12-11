@@ -10,7 +10,7 @@ public abstract class  FindService {
 	abstract void sortList(List<Service> lstService);
 
 
-	List<Service> getResultListService() {
+	final List<Service> getResultListService() {
 		List<Service> lstS = fillService();
 		sortList(lstS);
 		return Collections.unmodifiableList(lstS); }
@@ -18,8 +18,7 @@ public abstract class  FindService {
 	public String toString() {
 		String stringOfServices = new String();
 
-    		List<Service> lstS = fillService();
-		sortList(lstS);
+    		List<Service> lstS = getResultListService();
 		
     		for(Service s : lstS){
       			stringOfServices += s.toString() + "\n";

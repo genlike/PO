@@ -8,12 +8,12 @@ public class Special extends Category{
 	* @version 1.0
 */
 
-	private static final double _discount = 0.5;
+	final static double DISCOUNT = 0.5;
 	final static String DESCRIPTION = "ESPECIAL";
 
 
 	double getDiscount(){
-		return _discount;
+		return DISCOUNT;
 	}
 
 	String getCategoryDescription(){

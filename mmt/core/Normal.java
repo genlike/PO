@@ -8,12 +8,12 @@ public class Normal extends Category{
 	* @version 1.0
 */
 
-	private static final double _discount = 0.0;
+	final static double DISCOUNT = 0.0;
 	final static String DESCRIPTION = "NORMAL";
 
 
 	double getDiscount(){
-		return _discount;
+		return DISCOUNT;
 	}
 
 	String getCategoryDescription(){

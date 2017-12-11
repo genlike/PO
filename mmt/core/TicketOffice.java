@@ -116,7 +116,8 @@ public class TicketOffice {
 
   /**
      * Metodo que trata de alterar o nome de um passageiro ja existente
-     * @param id do tipo int, newName do tipo String
+     * @param id do tipo int
+     * @param newName do tipo String
      * @throws NoSuchPassengerIdException quando o id do passageiro e' invalido
      */
   public void changePassengerName(int id, String newName) throws NoSuchPassengerIdException{
@@ -176,6 +177,7 @@ public class TicketOffice {
      * Metodo que retorna a lista de itenerarios de um determinado passageiro 
      * @param id do tipo int
      * @return string com a lista de itenerarios do passageiro
+     * @throws NoSuchPassengerIdException Quando o Passageiro com determinado ID nao existe
      */
   public String showItinerariesById(int id) throws NoSuchPassengerIdException {
     return _trainCompany.showItinerariesById(id);
@@ -184,9 +186,15 @@ public class TicketOffice {
 
   /**
      * Metodo que retorna uma string com os itenerios com os requisitos 
-     * @param estcao de partida do tipo String, estacao de chegada do tipo String, 
-     *        data de partida do tipo String, hora de partida do tipo String
-     * @return string com os itenerarios
+     * @param departureStation estacao de partida do tipo String
+     * @param arrivalStation estacao de chegada do tipo String 
+     * @param departureDate data de partida do tipo String
+     * @param departureHour tempo de partida do tipo String
+     * @return s string com os itenerarios
+     * @throws NoSuchPassengerIdException Quando o passenger ID não é valido
+     * @throws NoSuchStationNameException Quando o nome da estacao nao e valido
+     * @throws BadDateSpecificationException Quando a data nao esta em formato valido
+     * @throws BadTimeSpecificationException Quando o tempo nao esta em formato valido
      */
   public String searchItinerary(String departureStation, String arrivalStation, String departureDate, String departureHour) 
 	 throws NoSuchPassengerIdException, NoSuchStationNameException, BadDateSpecificationException, BadTimeSpecificationException {
@@ -196,7 +204,10 @@ public class TicketOffice {
   
   /**
      * Metodo que trata de fazer a compra do itenerario  
-     * @param id do passageiro do tipo int, numero de escolhas do tipo int
+     * @param passengerId id do passageiro do tipo int, numero de escolhas do tipo int
+     * @param itChoice id da lista de itinerarios criada em {@link mmt.core.TrainCompany#searchItinerary} 
+     * @throws NoSuchPassengerIdException Quando o id do passageiro nao e valido
+     * @throws NoSuchItineraryChoiceException Quando o indice nao pertence a lista de itinerarios criada em {@link mmt.core.TrainCompany#searchItinerary}
      */
   public void commitItinerary (int p, int itChoice) throws NoSuchPassengerIdException, NoSuchItineraryChoiceException {
     _trainCompany.commitItinerary(p, itChoice);

@@ -316,7 +316,9 @@ public class TrainCompany implements java.io.Serializable {
   Itinerary getRecursiveItinerary(Stop stpOrigin, Station stDestination,List<Service> lstService,List<Station> lstStation){
     Itinerary it = null;
     Segment sg;
-  
+    List<Station> lstActualStation = new ArrayList<>(lstStation);
+
+    // Verifica se o percurso e' direto
     if (!lstService.contains(stpOrigin.getService())){
       lstService.add(stpOrigin.getService());			  		
   	 	sg = stpOrigin.getService().createSegment(stpOrigin.getStation(), stDestination);
@@ -329,20 +331,22 @@ public class TrainCompany implements java.io.Serializable {
 	  }
 
 	  Stop current = stpOrigin.getNext();
-	  Stop prev = stpOrigin;
 	  Stop shortest = null;
 
 	  while (current != null) {
 	    Itinerary tmp = null;
 
-	    if (!lstStation.contains(current.getStation())) {
-
+      //Evita a repeticao de processamento de estacoes ja percorridas
+	    if (!lstActualStation.contains(current.getStation())) {
+        
 		    for(Stop stpStation : current.getStation().getStops()) {
 
-		    	if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(prev.getSchedule())>0) {
+          //Evita a repeticao de servios e que permite que se procurem opcoes para estacoes com hora posterior
+		    	if (!lstService.contains(stpStation.getService()) && stpStation.getSchedule().compareTo(current.getSchedule())>0) {
 
-		    		tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstStation);
+		    		tmp = getRecursiveItinerary(stpStation, stDestination, lstService, lstActualStation);
 
+            // Verifica qual o itenerario mais favoravel 
 		    		if (it != null) {
 		    		   if (tmp != null && tmp.compareTo(it)<0) {
 		    		  	  it = tmp;
@@ -354,9 +358,8 @@ public class TrainCompany implements java.io.Serializable {
             }
 		    	}
         }
-        lstStation.add(current.getStation());
-	    }
-	    prev = current;
+        lstActualStation.add(current.getStation());
+      }
 	    current = current.getNext();
 	  }
 
@@ -385,6 +388,7 @@ public class TrainCompany implements java.io.Serializable {
      * Metodo que retorna a lista de itenerarios de um determinado passageiro 
      * @param id do tipo int
      * @return string com a lista de itenerarios do passageiro
+     * @throws NoSuchPassengerIdException Quando o Passageiro com determinado ID nao existe
      */
   String showItinerariesById(int id) throws NoSuchPassengerIdException {
     Passenger p = _listPassageiros.get(id);
